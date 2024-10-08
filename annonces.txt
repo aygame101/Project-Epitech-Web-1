@@ -1,0 +1,115 @@
+Data analyst :
+Mr.X
+Ubisoft
+Paris, 15ème 
+Contrat : CDI 
+Salaire : 50 000€/an
+Description du poste :
+Nous recherchons un(e) Data Engineer talentueux(se) et passionné(e) pour rejoindre notre équipe Data & Analytics. Vous serez chargé(e) de concevoir, construire et maintenir l'infrastructure de traitement des données nécessaire pour soutenir nos initiatives data-driven.
+En tant que Data Engineer, vous travaillerez en étroite collaboration avec les Data Scientists, les équipes de développement et les analystes pour garantir que les données sont accessibles, fiables et optimisées pour les analyses et prises de décisions.
+
+
+Responsabilités principales :
+* Concevoir, développer et maintenir des pipelines de données robustes et évolutifs.
+* Intégrer et transformer des données provenant de sources multiples (bases de données SQL/NoSQL, API, fichiers plats, etc.).
+* Optimiser les performances des bases de données et des traitements de données.
+* Implémenter des solutions de stockage de données modernes (data lakes, data warehouses).
+* Assurer la qualité des données (vérification, nettoyage, validation).
+* Travailler en collaboration avec les équipes produit et IT pour répondre aux besoins métiers.
+* Mettre en place des solutions de monitoring et de sécurité pour garantir la disponibilité et l'intégrité des données.
+
+
+
+
+
+
+Consultant cybersécurité :
+Wukong
+Safran
+Paris, 2ème  
+Contrat : CDI
+Salaire : 52 000€ /an
+
+Description du poste :
+Nous sommes à la recherche d'un(e) Consultant(e) en Cybersécurité pour renforcer notre équipe et accompagner nos clients dans la protection de leurs systèmes d'information. Vous jouerez un rôle clé dans l'évaluation, la mise en œuvre et la gestion des stratégies de sécurité des entreprises clientes afin de prévenir les cyberattaques et d'améliorer leur résilience face aux menaces numériques.
+Vous travaillerez en étroite collaboration avec les équipes techniques et managériales pour offrir des solutions sur mesure, allant de l'audit à la conception de plans d'amélioration en passant par la réponse aux incidents.
+
+Responsabilités principales :
+* Réaliser des audits de sécurité informatique (tests d'intrusion, analyses de vulnérabilités, etc.).
+* Développer et mettre en œuvre des stratégies de cybersécurité adaptées aux besoins des clients.
+* Proposer des solutions pour sécuriser les systèmes, réseaux et applications.
+* Assurer la conformité des systèmes d'information avec les normes et réglementations en vigueur (ISO 27001, RGPD, etc.).
+* Participer à la gestion des incidents de sécurité et à l'investigation des attaques.
+* Conseiller les clients sur les bonnes pratiques et les outils de sécurité (SIEM, pare-feu, IDS/IPS, etc.).
+* Assurer une veille technologique sur les nouvelles menaces et solutions en cybersécurité.
+* Former et sensibiliser les équipes des clients aux enjeux de la cybersécurité.
+
+
+
+
+Architecte des Systèmes d'Informations :
+Son Goku
+Firefly Inc
+La Défense
+Contrat : CDD de 18 mois
+Salaire : 2561€/mois
+Description du poste :
+Nous recherchons un(e) Architecte des Systèmes d'Information expérimenté(e) pour rejoindre notre équipe et concevoir des solutions technologiques innovantes adaptées à nos besoins métiers. Vous serez responsable de la structuration et de l'optimisation de notre architecture informatique, en assurant sa cohérence avec la stratégie de l'entreprise.
+En tant qu'Architecte SI, vous jouerez un rôle clé dans la transformation numérique, en garantissant l'intégration des nouvelles technologies, la sécurité, la performance et l'évolutivité des systèmes.
+
+Responsabilités principales :
+* Concevoir et formaliser l'architecture globale du système d'information en accord avec les objectifs stratégiques de l'entreprise.
+* Assurer la cohérence entre les différentes briques technologiques (applications, réseaux, données, etc.) et leur interopérabilité.
+* Élaborer des solutions innovantes pour répondre aux besoins métiers tout en garantissant la robustesse, la scalabilité et la sécurité des systèmes.
+* Collaborer étroitement avec les équipes de développement, les chefs de projet et les experts métier pour piloter l'implémentation de nouvelles solutions.
+* Veiller à l'alignement des architectures avec les meilleures pratiques (TOGAF, ITIL, etc.) et les normes de sécurité.
+* Participer à la définition des politiques d'urbanisation du SI et à la gestion du cycle de vie des applications.
+* Réaliser des études de faisabilité technique et évaluer les impacts des projets sur l'architecture existante.
+* Assurer une veille technologique continue pour anticiper les évolutions du marché et des besoins.
+
+
+
+Analyste SOC :
+Leon S Kennedy
+AMD
+Corbeilles-Essonne
+Contrat : Alternance
+Salaire : à définir selon l'âge du candidat
+
+Description du poste :
+Nous recherchons un(e) Analyste SOC (Security Operations Center) pour intégrer notre équipe de sécurité informatique. En tant qu'Analyste SOC, vous serez responsable de la détection, de l'analyse et de la réponse aux incidents de sécurité en temps réel. Vous jouerez un rôle essentiel dans la protection des systèmes d'information et des données de nos clients contre les menaces cybernétiques.
+Vous travaillerez dans un environnement dynamique et serez exposé(e) à une grande variété de menaces, ce qui vous permettra de développer vos compétences en matière de cybersécurité.
+
+Responsabilités principales :
+* Surveiller les systèmes de sécurité (SIEM, IDS/IPS) pour détecter les menaces et les incidents en temps réel.
+* Analyser les alertes de sécurité et évaluer leur impact sur les systèmes.
+* Réagir rapidement aux incidents de sécurité en suivant les procédures définies (containment, eradication, recovery).
+* Effectuer des enquêtes approfondies sur les incidents de sécurité, y compris l'analyse des logs et la détection des comportements anormaux.
+* Mettre à jour et maintenir les indicateurs de compromission (IoC) et les règles de détection.
+* Assurer une gestion efficace des incidents de sécurité, y compris la documentation, l'escalade et la communication avec les parties prenantes.
+* Collaborer avec les équipes de sécurité, infrastructure et développement pour renforcer la posture de sécurité.
+* Participer à des exercices de simulation d'incidents (cyber drills) et aux plans d'amélioration continue.
+
+
+Chef de projet Web :
+Louis XIV
+Versailles
+Contrat : CDI
+Salaire : 25 000€/an
+Description du poste :
+Nous recherchons un(e) Chef de Projet Web dynamique et motivé(e) pour rejoindre notre équipe digitale. Vous serez responsable de la gestion et du suivi des projets web, depuis la phase de conception jusqu'à la mise en ligne. En tant que Chef de Projet Web, vous coordonnerez les équipes techniques, créatives et marketing afin de garantir la livraison de projets de qualité respectant les délais et les budgets.
+Votre objectif sera d'assurer la réussite des projets web en pilotant les différentes étapes de réalisation (conception, développement, tests, déploiement) et en étant l'interlocuteur privilégié des parties prenantes.
+
+Responsabilités principales :
+* Gérer l'ensemble du cycle de vie des projets web (sites web, applications, plateformes e-commerce).
+* Coordonner les équipes internes (développeurs, designers, UX/UI, marketing) et externes (prestataires, clients).
+* Recueillir les besoins des clients et définir les objectifs, les livrables et les échéances.
+* Rédiger des cahiers des charges fonctionnels et techniques en lien avec les équipes concernées.
+* Assurer le respect des budgets et des délais tout en garantissant la qualité des livrables.
+* Superviser le développement et l'intégration des solutions techniques (CMS, frameworks, API).
+* Effectuer des tests fonctionnels et s'assurer du bon déroulement des phases de validation et de mise en ligne.
+* Veiller à l'optimisation continue des projets web après leur lancement (maintenance, SEO, analyse de performance).
+* Assurer une veille technologique pour proposer des solutions innovantes et adaptées aux besoins métiers.
+
+
+
