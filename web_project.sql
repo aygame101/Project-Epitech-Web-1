@@ -1,5 +1,7 @@
+--create the database first
 CREATE DATABASE	web_project
 
+-- Then on the database create the tables
 CREATE TABLE peopleincharge (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(100) NOT NULL,
