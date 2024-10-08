@@ -5,6 +5,6 @@
 - Début de structuration de la page index du site internet.
 
 ## Mardi 8.10.2024
-- Réalisation des formulaire pour la publication d'annonces et de l'inscription des candidats.
+- Réalisation des formulaires (index, form jobs, form applyers) pour la publication d'annonces et de l'inscription des candidats.
 - Renseignement sur l'utilisation de SQL.
 - Création fausse annonces pour test.
