@@ -8,3 +8,4 @@
 - Réalisation des formulaires (index, form jobs, form applyers) pour la publication d'annonces et de l'inscription des candidats.
 - Renseignement sur l'utilisation de SQL.
 - Création fausse annonces pour test.
+- Renseignement sur l'usage d'API en relation avec une base de donnée faite en SQL.
