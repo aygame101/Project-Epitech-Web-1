@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_form_company.css">
     <script src="js/script.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,43 +10,25 @@
 <body>
     <div class="div_titre_acc">
         <h1 class="titre_acc">J0B F1ND3R</h1>
-    </div>
+    <div class="div_form">
+        <h2>Create your Job advertisement here :</h2>
+
         <form action="" method="get">
-            <div>
                 <input type="text" companyname="company name" id="companyname" placeholder="Name of the Company" required>
-            </div>
-            <br>
-            <div>
-                <label for="City">City : </label>
+
                 <input type="texte" city="city" id="city" placeholder="City" required>
-            </div>
-            <br>
-            <div>
-                <label for="Job">Job : </label>
-                <input type="text" job="job" id="job" placeholder="Job" required>
-            </div>
-            <br>
-            <div>
-                <label for="Contract type">Contract : </label>
-                <input type="" contract="contract" id="contract" required>
-            </div>
-            <br>
-            <div>
-                <label for="Wages">Wages : </label>
-                <input type=""[20] wages="wages" id="wages" required>
-            </div>
-            <br>
-            <div>
-                <label for="Job Description">Job description : </label>
-                <textarea id="description" description="Job description" required></textarea>
-            </div>
-            <br>
-            <div>
-                <input type="submit" value="submit">
-            </div>
+
+                <input type="text" job="job" id="job" placeholder="Job ad" required>
+
+                <input type="" contract="contract" id="contract" placeholder="Contract Type" required>
+
+                <input type=""[20] wages="wage" id="wage" placeholder="Wage" required>
+
+                <textarea id="description" description="Job description" placeholder="Job description "required></textarea>
+
+                <input type="submit" value="Submit" class="submit">
         </form>
-
-
+    </div>
 
     </body>
 
