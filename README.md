@@ -5,3 +5,4 @@
 - Début de structuration de la page index du site internet.
 
 ## Mardi 8.10.2024
+- Réalisation des formulaire pour la publication d'annonces et de l'inscription des candidats.
