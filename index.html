@@ -8,21 +8,40 @@
     <title>J0B F1ND3R</title>
 </head>
 <body>
-    <div>
-        <h1>J0B F1ND3R</h1>
-    </div>
-    <div>
-        <p>What are you looking for ? </p>
+    <div class="div_titre_acc">
+        <h1 class="titre_acc">J0B F1ND3R</h1>
     </div>
 
-    <div>
-        <p>Job Title</p>
-        <p>Contract Type</p>
-        <p>Location</p>
-    </div>
+    <div class="div_search">
+        <h2>What are you looking for ?</h2>
 
-    <div>
-        <p>Search</p>
+
+    <form action="" method="get">
+
+        <!-- <label for="job_title">Job Title :</label> -->
+        <select id="job_title" name="job_title">
+            <option selected="true" disabled="true" >Job Title</option>
+
+            <!-- recup les données dans la BDD -->
+        </select>
+
+        <!-- <label for="contract_type">Contract Type :</label> -->
+        <select id="contract_type" name="contract_type">
+            <option selected="true" disabled="true" >Contract Type</option>
+
+            <!-- recup les données dans la BDD -->
+        </select>
+
+        <!-- <label for="location">Location :</label> -->
+        <select id="location" name="location">
+            <option selected="true" disabled="true" >Location</option>
+
+            <!-- recup les données dans la BDD -->
+        </select>
+
+        <input type="submit" value="Search"/>
+    </form>
+
     </div>
 </body>
 </html>
