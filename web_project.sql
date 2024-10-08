@@ -35,7 +35,7 @@ CREATE TABLE advertising (
     contrat VARCHAR(100) NOT NULL,
     lieu VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    FOREIGN KEY (company_name) REFERENCES Companies(name)  -- Foreign key to Companies table
+    FOREIGN KEY (company_name) REFERENCES companies(name)  -- Foreign key to Companies table
 );
 
 CREATE TABLE requeststorage (
@@ -43,7 +43,7 @@ CREATE TABLE requeststorage (
     id_annonce_postule INT NOT NULL,  -- Reference to an ad from the Advertising table
     applayer_info INT NOT NULL,       -- Reference to an applicant from the Applayers table
     id_company INT NOT NULL,          -- Reference to a company from the Companies table
-    FOREIGN KEY (id_annonce_postule) REFERENCES Advertising(id),
-    FOREIGN KEY (applayer_info) REFERENCES Applayers(id),
-    FOREIGN KEY (id_company) REFERENCES Companies(id)
+    FOREIGN KEY (id_annonce_postule) REFERENCES advertising(id),
+    FOREIGN KEY (applayer_info) REFERENCES applayers(id),
+    FOREIGN KEY (id_company) REFERENCES companies(id)
 );
