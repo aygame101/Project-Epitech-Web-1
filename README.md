@@ -9,3 +9,4 @@
 - Renseignement sur l'utilisation de SQL.
 - Création fausse annonces pour test.
 - Renseignement sur l'usage d'API en relation avec une base de donnée faite en SQL.
+- Premiers essais pour les tables SQL.
