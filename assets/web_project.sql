@@ -2,38 +2,32 @@
 CREATE DATABASE	web_project
 
 -- Then on the database create the tables
-CREATE TABLE peopleincharge (
+CREATE TABLE people (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    mail VARCHAR(100) NOT NULL
+    applying INT NOT NULL,
+    mail VARCHAR(255) NOT NULL,
+    name VARCHAR(100),
+    firstname VARCHAR(100),
+    phone VARCHAR(20),
+    password VARCHAR(255),
+    salt VARCHAR (255),
 );
-
-CREATE TABLE applayers (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    firstname VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    mail VARCHAR(255) NOT NULL
-);
-
 
 CREATE TABLE companies (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(100) NOT NULL,
-    address VARCHAR(100) NOT NULL,
-    people_in_charge INT NOT NULL,
-    UNIQUE(name),  -- Ensures the company name is unique
-    FOREIGN KEY (people_in_charge) REFERENCES peopleincharge(id)
+    password VARCHAR(255) NOT NULL,
+    salt VARCHAR (255) NOT NULL,
+    UNIQUE(name)  -- Ensures the company name is unique
 );
 
 CREATE TABLE advertising (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     company_name VARCHAR(100) NOT NULL,  -- Reference to Companies
     poste VARCHAR(255) NOT NULL,
-    salaire DECIMAL(10, 2) NOT NULL,
-    contrat VARCHAR(100) NOT NULL,
     lieu VARCHAR(255) NOT NULL,
+    salaire VARCHAR(20) NOT NULL,
+    contrat VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     FOREIGN KEY (company_name) REFERENCES companies(name)  -- Foreign key to Companies table
 );
@@ -44,7 +38,7 @@ CREATE TABLE requeststorage (
     applayer_info INT NOT NULL,       -- Reference to an applicant from the Applayers table
     id_company INT NOT NULL,          -- Reference to a company from the Companies table
     FOREIGN KEY (id_annonce_postule) REFERENCES advertising(id),
-    FOREIGN KEY (applayer_info) REFERENCES applayers(id),
+    FOREIGN KEY (applayer_info) REFERENCES people(id),
     FOREIGN KEY (id_company) REFERENCES companies(id)
 );
 
