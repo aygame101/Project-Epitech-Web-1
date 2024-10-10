@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <!-- importer le fichier de style -->
+
     <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
 </head>
 
@@ -21,7 +21,7 @@
             }
         } else if ($_SESSION['username'] !== "") {
             $user = $_SESSION['username'];
-            // afficher un message
+            
             echo "<br>Bonjour $user, vous êtes connectés";
         }
         ?>
