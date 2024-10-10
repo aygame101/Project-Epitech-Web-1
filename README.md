@@ -12,4 +12,4 @@
 - Premiers essais pour les tables SQL.
 
   ## Jeudi 10.10.2024
-  - Réalisation de la page de login ainsi que les vérifications qui vont avec.
+  - Réalisation de la page de login ainsi que les vérifications qui vont avec et la possibilité de se déconnecter.
