@@ -11,6 +11,7 @@
 - Renseignement sur l'usage d'API en relation avec une base de donnée faite en SQL.
 - Premiers essais pour les tables SQL.
 
-  ## Jeudi 10.10.2024
-  - Réalisation de la page de login ainsi que les vérifications qui vont avec et la possibilité de se déconnecter.
-  - Renseignement sur la création d'une API permettant d'utiliser la méthode CRUD.
+## Jeudi 10.10.2024
+- Réalisation de la page de login ainsi que les vérifications qui vont avec et la possibilité de se déconnecter.
+- Renseignement sur la création d'une API permettant d'utiliser la méthode CRUD.
+- Bouton pour "voir plus" sur le texte de l'annonce en Javascript.
