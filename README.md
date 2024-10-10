@@ -13,3 +13,4 @@
 
   ## Jeudi 10.10.2024
   - Réalisation de la page de login ainsi que les vérifications qui vont avec et la possibilité de se déconnecter.
+  - Renseignement sur la création d'une API permettant d'utiliser la méthode CRUD.
