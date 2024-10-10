@@ -14,15 +14,17 @@
         <h2>Create your Job advertisement here :</h2>
 
         <form action="" method="get">
-                <input type="text" companyname="company name" id="companyname" placeholder="Name of the Company" required>
+                <input type="text" name="company_name" id="company_name" placeholder="Name of the Company" required>
 
-                <input type="texte" city="city" id="city" placeholder="City" required>
+                <input type="text" name="city" id="city" placeholder="City" required>
 
-                <input type="text" job="job" id="job" placeholder="Job ad" required>
+                <input type="text" name="job" id="job" placeholder="Job ad" required>
 
-                <input type="" contract="contract" id="contract" placeholder="Contract Type" required>
+                <input type="text" name="contract" id="contract" placeholder="Contract Type" required>
 
-                <input type=""[20] wages="wage" id="wage" placeholder="Wage" required>
+                <input type="text" name="wage" id="wage" placeholder="Wage" maxlength="20" required>
+
+                <input type="text" name="in_charge" id="in_charge" placeholder="Mail person in charge" required>
 
                 <textarea id="description" description="Job description" placeholder="Job description "required></textarea>
 
