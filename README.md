@@ -19,4 +19,5 @@
 - CSS form_company & search_offer done
 
 ## Vendredi 11.10.2024
-
+- Ajustement mineurs sur les pages existantes.
+- 
