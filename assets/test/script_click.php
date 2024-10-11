@@ -20,7 +20,7 @@
     echo '<p id="part_text">'.$string.'</p>';
     ?>
     
-    <button onclick="hide_or_show_php()" id="toggle_see">See more</button>
+    <button onclick="hide_or_show()" id="toggle_see">See more</button>
 
 </body>
 
