@@ -6,3 +6,31 @@ function updateChamp() {
         document.getElementById('username').placeholder='Mail';
     }
 }
+
+function hide_or_show_php() {
+    var x = document.getElementById("text_full");
+    var y = document.getElementById("part_text");
+    if (x.style.display === "none") {
+        document.getElementById("toggle_see").innerHTML = "Hide"
+        x.style.display = "block";
+        y.style.display = "none";
+    } else {
+        document.getElementById("toggle_see").innerHTML = "See more"
+        x.style.display = "none";
+        y.style.display = "block";
+    }
+}
+
+function hide_or_show_html() {
+    var x = document.getElementById("text_full");
+    var y = document.getElementById("part_text");
+    if (x.style.display === "none") {
+        document.getElementById("toggle_see").innerHTML = "Hide"
+        x.style.display = "block";
+        y.style.display = "none";
+    } else {
+        document.getElementById("toggle_see").innerHTML = "See more"
+        x.style.display = "none";
+        y.style.display = "block";
+    }
+}

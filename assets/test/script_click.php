@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="../../js/script.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -19,23 +20,8 @@
     echo '<p id="part_text">'.$string.'</p>';
     ?>
     
-    <button onclick="hide_or_show()" id="toggle_see">See more</button>
+    <button onclick="hide_or_show_php()" id="toggle_see">See more</button>
 
-    <script>
-        function hide_or_show() {
-            var x = document.getElementById("text_full");
-            var y = document.getElementById("part_text");
-            if (x.style.display === "none") {
-                document.getElementById("toggle_see").innerHTML = "Hide"
-                x.style.display = "block";
-                y.style.display = "none";
-            } else {
-                document.getElementById("toggle_see").innerHTML = "See more"
-                x.style.display = "none";
-                y.style.display = "block";
-            }
-        }
-    </script>
 </body>
 
 </html>
