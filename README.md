@@ -20,4 +20,6 @@
 
 ## Vendredi 11.10.2024
 - Ajustement mineurs sur les pages existantes.
-- 
+- Création et mise en forme grâce au CSS de la page de connexion.
+- Renseignement intégration SQL.
+- Création de l'API.
