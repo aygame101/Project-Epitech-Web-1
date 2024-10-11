@@ -23,4 +23,4 @@
 - Création et mise en forme grâce au CSS de la page de connexion.
 - Renseignement intégration SQL.
 - Création de l'API.
-- Script JS pour connexion
+- Script JS pour page connexion
