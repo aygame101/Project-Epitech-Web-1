@@ -45,13 +45,10 @@ CREATE TABLE requeststorage (
 
 --partie test
 ```
-INSERT INTO peopleincharge (name,phone,mail)
+INSERT INTO people (firstname,mail,name,password,phone)
 VALUES 
-('mr.x','0123456789','mrX@league.lol'),
-('Wukong','6546464646','wukong@king.kong'),
-('Son Goku','8888888888','songoku@gohan.goten'),
-('Leon S Kennedy','0666666666','leonKenn@resident.evil'),
-('Louis XIV','01091715','louis@guillotine.dead')
+('mr','mrX@league.lol','x','123456789'),
+('Wukong','wukong@king.kong','singe','2024')
 
 INSERT INTO companies(name,address,people_in_charge)
 VALUES 
