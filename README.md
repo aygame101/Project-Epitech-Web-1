@@ -25,5 +25,17 @@
 - Création de l'API.
 - Script JS pour page connexion
 
-  ## Lundi 14.10.2021
-  -
+## Lundi 14.10.2021
+-
+
+
+
+### Statut général Step
+- Step 1 : Done
+- Step 2 : Working on
+- Step 3 : Done
+- Step 4 : To do
+- Step 5 : To do
+- Step 6 : Working on
+- Step 7 : To do
+- Step 8 : Done
