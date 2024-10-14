@@ -26,7 +26,8 @@
 - Script JS pour page connexion
 
 ## Lundi 14.10.2021
--
+- Follow-up --> utilisation de flask (python) pour l'API.
+- Avancement de la partie PHP sans API (ptdr le bouffon qui fait ça).
 
 
 
