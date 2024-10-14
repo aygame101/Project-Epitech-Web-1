@@ -24,3 +24,6 @@
 - Renseignement intégration SQL.
 - Création de l'API.
 - Script JS pour page connexion
+
+  ## Lundi 14.10.2021
+  -
