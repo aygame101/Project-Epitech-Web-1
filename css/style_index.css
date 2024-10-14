@@ -36,11 +36,11 @@ h2 {
     padding-top: 1%;
     padding-bottom: 1%;
     display: inline;
-    width: 90%;
+    width: 75%;
 }
 
 .login {
-    width: 10%;
+    width: 25%;
     display: inline;
     text-align: right;
     color: #eb3e81;
