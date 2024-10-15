@@ -2,20 +2,49 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://username:password@localhost/mydatabase"   # a remplacer avec nos base de donnée
-
-#pareil en dessus a adapter avec notre db
-
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://username:@localhost/web_project"  # a remplacer avec nos base de donnée
 db = SQLAlchemy(app)
 
-# a modif selon la database
+# personnes
 
-class User(db.Model):
+class People(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), nullable=False, unique=True)
+    applying = db.Column(db.Integer, nullable=False)
+    mail = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(100))
+    firstname = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    password = db.Column(db.String(255))
+    salt = db.Column(db.String(255))
 
-# a repéter avec les differents profils et par conséquent à adapter (postulant[creer, lire] , entreprises[créer, lire, modifier] et admin[créer, lire, modifier, supprimer])
+# companies
+
+class Companies(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    username = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    salt = db.Column(db.String(255), nullable=False)
+    
+# Ad
+
+class Advertising(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    company_name = db.Column(db.String(100), db.ForeignKey('companies.name'))
+    poste = db.Column(db.String(255), nullable=False)
+    lieu = db.Column(db.String(255), nullable=False)
+    salaire = db.Column(db.String(20), nullable=False)
+    contrat = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    
+# storage
+
+class RequestStorage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_annonce_postule = db.Column(db.Integer, db.ForeignKey('advertising.id'))
+    applayer_info = db.Column(db.Integer, db.ForeignKey('people.id'))
+    id_company = db.Column(db.Integer, db.ForeignKey('companies.id'))
+
 
                             #======================ADMIN======================
                             
