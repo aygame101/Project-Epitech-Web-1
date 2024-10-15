@@ -24,10 +24,11 @@ CREATE TABLE companies (
 CREATE TABLE job_ads (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     company_name VARCHAR(100) NOT NULL,  -- Reference to Companies
-    poste VARCHAR(255) NOT NULL,
-    lieu VARCHAR(255) NOT NULL,
-    salaire VARCHAR(20) NOT NULL,
-    contrat VARCHAR(100) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    job_title VARCHAR(255) NOT NULL,
+    contract_type VARCHAR(100) NOT NULL,
+    wage VARCHAR(30) NOT NULL,
+    mail_in_charge VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
     FOREIGN KEY (company_name) REFERENCES companies(name)  -- Foreign key to Companies table
 );
