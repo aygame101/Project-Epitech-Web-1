@@ -14,6 +14,10 @@ h2 {
     
 }
 
+::placeholder {
+    color: grey;
+  }
+
 /* #091723  --> noir
 
 #eb3e81 --> rose
@@ -61,6 +65,25 @@ input {
     font-weight: bold;
 }
 
+select {
+    height: 60px;
+
+    padding-left: 1%;
+    padding-right: 1%;
+
+    border: 5px solid;
+    border-radius: 20px;
+    display: block;
+    box-sizing: border-box;
+    width:50%;
+    color: #eb3e81;
+    border-color: #091723;
+    margin-top: 30px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
 textarea {
     height: 200px;
     padding-top: 1%;
@@ -92,8 +115,10 @@ textarea {
     color: #eb3e81;
     border-color: #091723;
     margin-top: 30px;
+    margin-bottom: 50px;
+
     font-size: 25px;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 50px;
+
 }
