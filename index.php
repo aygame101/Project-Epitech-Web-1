@@ -51,6 +51,8 @@
         <input type="submit" value="Search"/>
     </form>
 
+        <h3><a href="pages/form_company.html">Post job offer</a></h3>
+
     </div>
 </body>
 </html>
