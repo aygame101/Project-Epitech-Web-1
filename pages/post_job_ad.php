@@ -34,7 +34,7 @@ try {
     ));
 
     
-    header('Location: form_company.html');
+    header('Location: post_job_done.html');
     exit();
 
 } catch (PDOException $e) {
