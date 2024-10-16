@@ -31,7 +31,8 @@
 
 ## Mardi 15.10.2024
 - Réalisation de l'API ainsi que ses test.
-- Création des pages hypnos et post job ad en php ainsi que la page form company en html.
+- Correction de la BDD et mise en place de celle ci en localhost.
+- Création des pages hypnos et post_job_ad en php relié à form_company en html.permettant l'envoi de nouvelles annonces dans la BDD.
 
 
 ### Statut général Step
