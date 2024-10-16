@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <link rel="stylesheet" href="css/style_index.css">
     <script src="js/script.js"></script>
@@ -7,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>J0B F1ND3R</title>
 </head>
+
 <body>
     <div class="div_titre_acc">
         <h1 class="titre_acc">J0B F1ND3R</h1>
@@ -25,37 +27,62 @@
         <h2>What are you looking for ?</h2>
 
 
-    <form action="" method="get">
+        <form action="" method="get">
 
-        <!-- <label for="job_title">Job Title :</label> -->
-        <select id="job_title" name="job_title">
-            <option selected="true" disabled="true" >Job Title</option>
+            <!-- <label for="job_title">Job Title :</label> -->
+            <select id="job_title" name="job_title">
+                <option selected="true" disabled="true" id="job_title" value="job_title">Job Title</option>
+                <!-- recup les données dans la BDD -->
+            </select>
 
-            <!-- recup les données dans la BDD -->
-        </select>
+            <!-- <label for="contract_type">Contract Type :</label> -->
+            <select id="contract_type" name="contract_type">
+                <option selected="true" disabled="true">Contract Type</option>
 
-        <!-- <label for="contract_type">Contract Type :</label> -->
-        <select id="contract_type" name="contract_type">
-            <option selected="true" disabled="true" >Contract Type</option>
+                <!-- recup les données dans la BDD -->
+            </select>
 
-            <!-- recup les données dans la BDD -->
-        </select>
+            <!-- <label for="location">Location :</label> -->
+            <select id="location" name="location">
+                <option selected="true" disabled="true">Location</option>
 
-        <!-- <label for="location">Location :</label> -->
-        <select id="location" name="location">
-            <option selected="true" disabled="true" >Location</option>
+                <?php
+                require_once('assets/hypnos.php');
 
-            <!-- recup les données dans la BDD -->
-        </select>
+                // Create connection
+                $conn = mysqli_connect($host, $username, $password, $dbname);
+                // Check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
 
-        <input type="submit" value="Search"/>
-    </form>
+                $sql = "SELECT DISTINCT city FROM job_ads;";
+                $result = mysqli_query($conn, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    // output data of each row
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<option id="'.$row["city"].'" value="'.$row["city"].'">'.$row["city"].'</option>';
+                    }
+                } else {
+                    echo "0 results";
+                }
+
+                mysqli_close($conn);
+                ?>
+                <!-- recup les données dans la BDD -->
+            </select>
+
+            <input type="submit" value="Search" />
+        </form>
 
         <h3><a href="pages/form_company.html">Post job offer</a></h3>
 
     </div>
 </body>
+
 </html>
+
 
 <!--
 session_start();
