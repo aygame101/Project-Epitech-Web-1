@@ -20,9 +20,16 @@
 
                 <input type="text" name="job" id="job" placeholder="Job title" required>
 
-                <input type="text" name="contract" id="contract" placeholder="Contract Type" required>
+                <select type="text" name="contract" id="contract" placeholder="Contract Type" required>
+                    <option id="ppa" value="PPA">CDI</option>
+                    <option id="esupcom" value="Esupcom">CDD</option>
+                    <option id="efab" value="EFAB">Half-time</option>
+                    <option id="ppa_sport" value="PPA Sport">Internship</option>
+                    <option id="maestris_bts" value="Maestris BTS">Apprenticeship</option>
+                    <option id="efet_studio_crea" value="Efet Studio Créa">Freelance</option>
+                </select>
 
-                <input type="text" name="wage" id="wage" placeholder="Wage" maxlength="20" required>
+                <input type="text" name="wage" id="wage" placeholder="Wage (ex: 3k/month)" maxlength="20" required>
 
                 <input type="email" name="in_charge" id="in_charge" placeholder="Mail person in charge" required>
 
