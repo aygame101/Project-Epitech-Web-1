@@ -14,9 +14,9 @@
         <?php
         session_start();
         if (!isset($_SESSION['connected'])) {
-            echo '<a class="login" href="login.php">Login / Register</a>';
+            echo '<a class="login" href="#">Login / Register</a>';
         } else if (isset($_SESSION['connected'])) {
-            echo '<p class="login">Account</p>';
+            echo '<p class="login" href="google.Fr">Account</p>';
         }
         ?>
     </div>
