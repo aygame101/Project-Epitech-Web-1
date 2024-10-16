@@ -36,6 +36,7 @@
 
 ## Mercredi 16.10.2024
 - Add page to confirm upload of job offer on dev branch.
+- Création de la page regroupant toute les offres en php avec l'option "learn more"
 
 
 ### Statut général Step
