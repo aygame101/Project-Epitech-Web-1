@@ -29,6 +29,9 @@
 - Follow-up --> utilisation de flask (python) pour l'API.
 - Avancement de la partie PHP sans API (ptdr le bouffon qui fait ça).
 
+## Mardi 15.10.2024
+- Réalisation de l'API ainsi que ses test.
+- Création des pages hypnos et post job ad en php ainsi que la page form company en html.
 
 
 ### Statut général Step
