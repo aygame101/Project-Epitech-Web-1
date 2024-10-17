@@ -1,6 +1,6 @@
 CREATE TABLE people (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    applying INT NOT NULL,
+    is_applier TINYINT DEFAULT 0 NOT NULL,
     mail VARCHAR(255) NOT NULL,
     name VARCHAR(100),
     firstname VARCHAR(100),
