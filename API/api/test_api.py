@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from flask_cors import CORS
+from sqlalchemy import func
 
 app = Flask(__name__)
 CORS(app)
@@ -195,8 +196,8 @@ def get_contract_types():
 
 @app.route("/locations", methods=["GET"])
 def get_locations():
-    locations = db.session.query(JobAds.city).distinct().all()
-    return jsonify({"locations": [location[0] for location in locations]})
+    locations = db.session.query(func.substring_index(JobAds.city, ',', 1).label('city')).distinct().all()
+    return jsonify({"locations": [location.city for location in locations]})
 
     #lance l'api
     

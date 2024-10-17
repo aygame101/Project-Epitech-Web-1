@@ -56,11 +56,6 @@
 
 
         <form action="" method="get">
-
-            <!-- <label for="job_title">Job Title :</label> -->
-            <select id="job_title" name="job_title">
-                <option selected="true" disabled="true" id="job_title" value="job_title">Job Title</option>
-                <!-- recup les données dans la BDD -->
                 <select id="job_title" name="job_title">
                     <option selected="true" disabled="true" value="">Job Title</option>
                 </select>
