@@ -26,9 +26,20 @@
 - Script JS pour page connexion
 
 ## Lundi 14.10.2021
--
+- Follow-up --> utilisation de flask (python) pour l'API.
+- Avancement de la partie PHP sans API (ptdr le bouffon qui fait ça).
 
+## Mardi 15.10.2024
+- Réalisation de l'API ainsi que ses test.
+- Correction de la BDD et mise en place de celle ci en localhost.
+- Création des pages hypnos et post_job_ad en php relié à form_company en html.permettant l'envoi de nouvelles annonces dans la BDD.
 
+## Mercredi 16.10.2024
+- Add page to confirm upload of job offer on dev branch.
+- Création de la page regroupant toute les offres en php avec l'option "learn more".
+
+## Jeudi 17.10.2024
+- Création nouvelle branche pour travailler sur l'API.
 
 ### Statut général Step
 - Step 1 : Done
