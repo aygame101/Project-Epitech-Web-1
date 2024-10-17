@@ -32,12 +32,40 @@
             <!-- <label for="job_title">Job Title :</label> -->
             <select id="job_title" name="job_title">
                 <option selected="true" disabled="true" id="job_title" value="job_title">Job Title</option>
+                <option id="all" value="*">*ALL*</option>
+                
+                <?php
+                require_once('assets/hypnos.php');
+
+                // Create connection
+                $conn = mysqli_connect($host, $username, $password, $dbname);
+                // Check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+
+                $sql = "SELECT DISTINCT company_name FROM job_ads;";
+                $result = mysqli_query($conn, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    // output data of each row
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<option id="'.$row["company_name"].'" value="'.$row["company_name"].'">'. ucfirst(strtolower($row["company_name"])).'</option>';
+                    }
+                } else {
+                    echo "0 results";
+                }
+
+                mysqli_close($conn);
+                ?>
+                
                 <!-- recup les données dans la BDD -->
             </select>
 
             <!-- <label for="contract_type">Contract Type :</label> -->
             <select id="contract_type" name="contract_type">
                 <option selected="true" disabled="true">Contract Type</option>
+                <option id="all" value="*">*ALL*</option>
 
                 <?php
                 require_once('assets/hypnos.php');
@@ -55,7 +83,7 @@
                 if (mysqli_num_rows($result) > 0) {
                     // output data of each row
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<option id="'.$row["contract_type"].'" value="'.$row["contract_type"].'">'. ucfirst($row["contract_type"]).'</option>';
+                        echo '<option id="'.$row["contract_type"].'" value="'.$row["contract_type"].'">'. $row["contract_type"].'</option>';
                     }
                 } else {
                     echo "0 results";
@@ -69,6 +97,7 @@
             <!-- <label for="location">Location :</label> -->
             <select id="location" name="location">
                 <option selected="true" disabled="true">Location</option>
+                <option id="all" value="*">*ALL*</option>
 
                 <?php
                 require_once('assets/hypnos.php');
@@ -86,7 +115,7 @@
                 if (mysqli_num_rows($result) > 0) {
                     // output data of each row
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<option id="'.$row["city"].'" value="'.$row["city"].'">'. ucfirst($row["city"]).'</option>';
+                        echo '<option id="'.$row["city"].'" value="'.$row["city"].'">'. ucfirst(strtolower($row["city"])).'</option>';
                     }
                 } else {
                     echo "0 results";
