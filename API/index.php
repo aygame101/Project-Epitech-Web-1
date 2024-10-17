@@ -9,30 +9,43 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Remplir le menu déroulant des titres de poste
-            $.get("http://localhost:8000/job_titles", function(data) {
-                var select = $("#job_title");
-                $.each(data.job_titles, function(index, value) {
-                    select.append($('<option></option>').val(value).html(value));
-                });
-            });
+                    // Remplir le menu déroulant des titres de poste
+                    $.get("http://localhost:8000/job_titles", function(data) {
+                        var select = $("#job_title");
+                        $.each(data.job_titles, function(index, value) {
+                            select.append($('<option></option>').val(value).html(value));
+                        });
+                    });
 
-            // Remplir le menu déroulant des types de contrat
-            $.get("http://localhost:8000/contract_types", function(data) {
-                var select = $("#contract_type");
-                $.each(data.contract_types, function(index, value) {
-                    select.append($('<option></option>').val(value).html(value));
-                });
-            });
+                    // Remplir le menu déroulant des types de contrat
+                    $.get("http://localhost:8000/contract_types", function(data) {
+                        var select = $("#contract_type");
+                        $.each(data.contract_types, function(index, value) {
+                            select.append($('<option></option>').val(value).html(value));
+                        });
+                    });
 
-            // Remplir le menu déroulant des localisations
-            $.get("http://localhost:8000/locations", function(data) {
-                var select = $("#location");
-                $.each(data.locations, function(index, value) {
-                    select.append($('<option></option>').val(value).html(value));
+                    // Remplir le menu déroulant des localisations
+                    $.get("http://localhost:8000/locations", function(data) {
+                        var select = $("#location");
+                        $.each(data.locations, function(index, value) {
+                            select.append($('<option></option>').val(value).html(value));
+                        });
+                    });
+
+                    // Gérer la soumission du formulaire
+                    $("form").submit(function(event) {
+                        event.preventDefault();
+                        var jobTitle = $("#job_title").val() === '*' ? '' : $("#job_title").val();
+                        var contractType = $("#contract_type").val() === '*' ? '' : $("#contract_type").val();
+                        var location = $("#location").val() === '*' ? '' : $("#location").val();
+
+                        // Rediriger vers la page de résultats avec les paramètres de recherche
+                        window.location.href = 'pages/offers.php?job_title=' + encodeURIComponent(jobTitle) +
+                            '&contract_type=' + encodeURIComponent(contractType) +
+                            '&location=' + encodeURIComponent(location);
+                    });
                 });
-            });
-        });
     </script>
     <title>J0B F1ND3R</title>
 </head>
@@ -56,19 +69,22 @@
 
 
         <form action="" method="get">
-                <select id="job_title" name="job_title">
-                    <option selected="true" disabled="true" value="">Job Title</option>
-                </select>
+            <select id="job_title" name="job_title">
+                <option selected="true" disabled="true" value="">Job Title</option>
+                <option id="all" value="*">*ALL*</option>
+            </select>
 
-                <select id="contract_type" name="contract_type">
-                    <option selected="true" disabled="true" value="">Contract Type</option>
-                </select>
+            <select id="contract_type" name="contract_type">
+                <option selected="true" disabled="true" value="">Contract Type</option>
+                <option id="all" value="*">*ALL*</option>
+            </select>
 
-                <select id="location" name="location">
-                    <option selected="true" disabled="true" value="">Location</option>
-                </select>
+            <select id="location" name="location">
+                <option selected="true" disabled="true" value="">Location</option>
+                <option id="all" value="*">*ALL*</option>
+            </select>
 
-                <input type="submit" value="Search" />
+            <input type="submit" value="Search" />
         </form>
 
         <h3><a href="pages/form_company.html">Post job offer</a></h3>

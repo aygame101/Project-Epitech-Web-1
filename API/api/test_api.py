@@ -196,8 +196,37 @@ def get_contract_types():
 
 @app.route("/locations", methods=["GET"])
 def get_locations():
-    locations = db.session.query(func.substring_index(JobAds.city, ',', 1).label('city')).distinct().all()
-    return jsonify({"locations": [location.city for location in locations]})
+    # Utilisez une expression régulière pour extraire la première partie avant la virgule ou le premier chiffre
+    locations = db.session.query(
+        func.regexp_replace(
+            func.regexp_replace(JobAds.city, r',.*$', ''),  # Supprime tout après la virgule
+            r'\s+\d.*$', ''  # Supprime tout après le premier chiffre (y compris l'espace avant)
+        ).label('city')
+    ).distinct().order_by('city').all()
+    # Nettoyez les résultats et supprimez les doublons
+    clean_locations = list(set(location.city.strip().capitalize() for location in locations if location.city))
+    return jsonify({"locations": clean_locations})
+
+    #recherche les offre celon les critere rentrer dans index.php
+
+@app.route("/search", methods=["GET"])
+def search_jobs():
+    job_title = request.args.get('job_title')
+    contract_type = request.args.get('contract_type')
+    location = request.args.get('location')
+
+    query = JobAds.query
+
+    if job_title:
+        query = query.filter(JobAds.job_title.like(f"%{job_title}%"))
+    if contract_type:
+        query = query.filter(JobAds.contract_type.like(f"%{contract_type}%"))
+    if location:
+        query = query.filter(JobAds.city.like(f"%{location}%"))
+
+    results = query.all()
+    output = [{"id": ad.id, "company_name": ad.company_name, "job_title": ad.job_title, "city": ad.city, "wage": ad.wage, "contract_type": ad.contract_type, "description": ad.description_job} for ad in results]
+    return jsonify({"job_ads": output})
 
     #lance l'api
     
