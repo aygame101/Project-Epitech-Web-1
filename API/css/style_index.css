@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #eb3e81;
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    font-size: 45px;
+    margin-bottom: 5%;
+}
+
+/* #091723  --> noir
+
+#eb3e81 --> rose
+
+#d89271 --> marron/chair
+
+#e457cb --> fusion marron/rose
+
+*/
+
+
+.div_titre_acc {
+    display: flex;
+}
+
+.titre_acc {
+    color: #eb3e81;
+    text-align: left;
+    font-size: 50px;
+    background-color: #091723;
+    padding-left: 20px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: inline;
+    width: 75%;
+}
+
+.login {
+    width: 25%;
+    display: inline;
+    text-align: right;
+    color: #eb3e81;
+    background-color: #091723;
+    font-size: 50px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-right: 2%;
+    text-decoration: none;
+}
+
+.way {
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.div_search {
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+select {
+    height: 60px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin: 0 auto;
+    border: 5px solid;
+    border-color: #091723;
+    border-radius: 20px;
+    display: block;
+    place-items: center;
+    color: #eb3e81;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    width:100%;
+    box-sizing:border-box;
+    margin-top: 50px;
+}
+
+input {
+    height: 60px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 5px solid;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    width:50%;
+    box-sizing:border-box;
+    color: #eb3e81;
+    border-color: #091723;
+    margin-top: 50px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+textarea {
+    height: 200px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    border: 5px solid;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    width:50%;
+    box-sizing:border-box;
+    color: #eb3e81;
+    border-color: #091723;
+    margin-top: 50px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+}
