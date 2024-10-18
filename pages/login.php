@@ -66,7 +66,7 @@ $conn->close();
 
     <div class="div_form">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <select id="type_person" name="type_person" required>
+        <select onclick="updateChamp()" id="type_person" name="type_person" required>
             <option value="" selected disabled>Are you a company or an applier</option>
             <option value="company">Company</option>
             <option value="applier">Applier</option>
