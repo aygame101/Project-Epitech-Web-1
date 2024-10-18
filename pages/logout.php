@@ -8,7 +8,7 @@ session_unset();
 session_destroy();
 
 // Rediriger vers la page de connexion ou toute autre page souhaitée
-header("Location: connexion.php");
+header("Location: login.php");
 exit();
 
 
