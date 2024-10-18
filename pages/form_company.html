@@ -13,20 +13,27 @@
     <div class="div_form">
         <h2>Create your Job advertisement here :</h2>
 
-        <form action="" method="get">
+        <form action="post_job_ad.php" method="POST">
                 <input type="text" name="company_name" id="company_name" placeholder="Name of the Company" required>
 
                 <input type="text" name="city" id="city" placeholder="City" required>
 
                 <input type="text" name="job" id="job" placeholder="Job title" required>
 
-                <input type="text" name="contract" id="contract" placeholder="Contract Type" required>
+                <select type="text" name="contract" id="contract" placeholder="Contract Type" required>
+                    <option id="cdi" value="CDI">CDI</option>
+                    <option id="cdd" value="CDD">CDD</option>
+                    <option id="half-time" value="Half-time">Half-time</option>
+                    <option id="internship" value="Internship">Internship</option>
+                    <option id="apprenticeship" value="Apprenticeship">Apprenticeship</option>
+                    <option id="freelance" value="Freelance">Freelance</option>
+                </select>
 
                 <input type="text" name="wage" id="wage" placeholder="Wage" maxlength="20" required>
 
                 <input type="text" name="in_charge" id="in_charge" placeholder="Mail person in charge" required>
 
-                <textarea id="description" description="Job description" placeholder="Job description "required></textarea>
+                <input type="text" name="description_job" id="description_job" placeholder="Job description "required>
 
                 <input type="submit" value="Submit" class="submit">
         </form>
