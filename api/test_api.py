@@ -6,7 +6,7 @@ from sqlalchemy import func
 
 app = Flask(__name__)
 CORS(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/test"  # replace with your database credentials
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/web_project"  # replace with your database credentials
 db = SQLAlchemy(app)
 
 
