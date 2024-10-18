@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $conn = new mysqli("localhost", "root", "", "test");
 
 if ($conn->connect_error) {
@@ -31,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_type'] = $type;
             $conn->close();
+            $_SESSION['connected'] = true;
             if ($type == 'company') {
-                header("Location: form_company.html");
+                header("Location: form_company.php");
             } else {
                 header("Location: ../index.php");
             }

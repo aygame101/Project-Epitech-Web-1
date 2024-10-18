@@ -57,7 +57,7 @@
         <?php
         session_start();
         if (!isset($_SESSION['connected'])) {
-            echo '<a class="login" href="#">Login</a>';
+            echo '<a class="login" href="pages/login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
             echo '<a class="login" href="#">Account</a>';
         }

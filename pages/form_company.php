@@ -10,6 +10,15 @@
 <body>
     <div class="div_titre_acc">
         <h1 class="titre_acc">J0B F1ND3R</h1>
+
+        <?php
+        session_start();
+        if (!isset($_SESSION['connected'])) {
+            echo '<a class="login" href="#">Login</a>';
+        } else if (isset($_SESSION['connected'])) {
+            echo '<p class="login" href="google.Fr">Account</p>';
+        }
+        ?>
     <div class="div_form">
         <h2>Create your Job advertisement here :</h2>
 
