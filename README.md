@@ -38,6 +38,15 @@
 - Add page to confirm upload of job offer on dev branch.
 - Création de la page regroupant toute les offres en php avec l'option "learn more"
 
+## Jeudi 17.10.2024
+
+## Vendredi 18.10.2024
+- CRUD API page Admin
+- affichage des propositions de jobs avec le bouton "see more"
+- CSS page jobs
+- Pages connexion / inscription
+
+
 
 ### Statut général Step
 - Step 1 : Done
