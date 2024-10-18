@@ -57,7 +57,7 @@
         <?php
         session_start();
         if (!isset($_SESSION['connected'])) {
-            echo '<a class="login" href="#">Login / Register</a>';
+            echo '<a class="login" href="#">Login</a>';
         } else if (isset($_SESSION['connected'])) {
             echo '<p class="login" href="google.Fr">Account</p>';
         }
@@ -87,7 +87,7 @@
             <input type="submit" value="Search" />
         </form>
 
-        <h3><a href="pages/form_company.html">Post job offer</a></h3>
+        <h3 class="post_job_offer"><a href="pages/form_company.html">Post a job offer</a></h3>
 
     </div>
 </body>
