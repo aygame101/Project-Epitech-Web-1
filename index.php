@@ -59,7 +59,7 @@
         if (!isset($_SESSION['connected'])) {
             echo '<a class="login" href="#">Login</a>';
         } else if (isset($_SESSION['connected'])) {
-            echo '<p class="login" href="google.Fr">Account</p>';
+            echo '<a class="login" href="#">Account</a>';
         }
         ?>
     </div>

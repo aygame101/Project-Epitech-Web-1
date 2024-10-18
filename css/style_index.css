@@ -48,20 +48,22 @@ a {
     padding-top: 1%;
     padding-bottom: 1%;
     display: inline;
-    width: 75%;
+    width: 90%;
 }
 
 .login {
-    width: 25%;
+    width: 10%;
     display: inline;
     text-align: right;
     color: #eb3e81;
     background-color: #091723;
-    font-size: 50px;
+    font-size: 40px;
     padding-top: 1%;
     padding-bottom: 1%;
     padding-right: 2%;
     text-decoration: none;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .way {
