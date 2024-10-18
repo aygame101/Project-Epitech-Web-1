@@ -24,5 +24,6 @@ if (mysqli_query($conn, $sql)) {
   echo "Error: " . mysqli_error($conn);
 }
 
-// Close connection
+
 mysqli_close($conn);
+header('location: ../pages/login.php');
