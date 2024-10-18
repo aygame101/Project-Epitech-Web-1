@@ -18,7 +18,7 @@ $data = [
     'description_job' => $description_job
 ];
 
-$url = 'http://localhost:8000/job_ads';  // Your Python API endpoint
+$url = 'http://localhost:8000/job_ads';
 
 $options = [
     'http' => [
@@ -32,22 +32,17 @@ $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 
 if ($result === FALSE) {
-    // Handle error
     $error = error_get_last();
     echo "An error occurred while sending data to the API: " . $error['message'];
 } else {
-    // Handle success
     $response = json_decode($result, true);
     if (isset($response['message'])) {
         echo $response['message'];
     } else {
         echo "Data sent successfully to the API.";
     }
-    // You might want to redirect the user or show a success message
-    // header('Location: form_company.html');
 }
 
-// Fetch and display all job ads
 $response = file_get_contents('http://127.0.0.1:8000/job_ads');
 if ($response === FALSE) {
     die('Error fetching data from API');

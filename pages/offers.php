@@ -17,7 +17,7 @@
     </div>
 
     <div id="job-container">
-        <!-- Les annonces seront affichées ici -->
+        <!-- annonces ICI -->
     </div>
 
     <div id="navigation">
@@ -30,7 +30,7 @@
             var jobAds = [];
             var currentIndex = 0;
 
-            // Fonction pour afficher une annonce
+            // Fonction afficher annonce
             function displayJob(job) {
                 var jobHtml = '<h1>' + job.job_title + ' at ' + job.company_name + '</h1>' +
                     '<h2>' + job.city + '</h2>' +
@@ -43,13 +43,13 @@
                 $('#job-container').html(jobHtml);
             }
 
-            // Fonction pour mettre à jour les boutons de navigation
+            // Fonction update boutons nav
             function updateNavigation() {
                 $('#prev').prop('disabled', currentIndex === 0);
                 $('#next').prop('disabled', currentIndex === jobAds.length - 1);
             }
 
-            // Charger les résultats de recherche
+            // résultats recherche
             $.get("http://localhost:8000/search", {
                 job_title: "<?php echo $_GET['job_title'] ?? ''; ?>",
                 contract_type: "<?php echo $_GET['contract_type'] ?? ''; ?>",
@@ -65,7 +65,7 @@
                 }
             });
 
-            // Gérer la navigation
+            // nav
             $('#prev').click(function() {
                 if (currentIndex > 0) {
                     currentIndex--;
