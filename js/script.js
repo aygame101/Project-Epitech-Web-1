@@ -20,3 +20,12 @@ function hide_or_show() {
         y.style.display = "block";
     }
 }
+
+function show_pass() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }

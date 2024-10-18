@@ -2,7 +2,7 @@
 session_start();
 
 
-$conn = new mysqli("localhost", "root", "", "test");
+$conn = new mysqli("localhost", "root", "", "web_project");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -81,7 +81,8 @@ $conn->close();
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <input type="text" id="username" name="username" placeholder="Username or Mail" required>
 
-        <input type="text" id="password" name="password" placeholder="Password" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <input type="checkbox" onclick="show_pass()"><p>Show Password</p>
 
         <input class="connexion" type="submit" value="Connexion"/>
 
