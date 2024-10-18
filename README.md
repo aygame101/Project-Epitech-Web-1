@@ -52,10 +52,10 @@
 
 ### Statut général Step
 - Step 1 : Done
-- Step 2 : Working on
+- Step 2 : Done
 - Step 3 : Done
-- Step 4 : To do
-- Step 5 : To do
-- Step 6 : Working on
-- Step 7 : To do
+- Step 4 : Working on (half of it)
+- Step 5 : Working on (doesnt send message and doesnt enter information automatically)
+- Step 6 : Working on (soon finish)
+- Step 7 : Working on (soon finish)
 - Step 8 : Done
