@@ -120,3 +120,9 @@
 </body>
 
 </html>
+
+
+<!--
+session_start();
+$_SESSION['connected'] = true;
+-->
