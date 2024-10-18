@@ -40,14 +40,14 @@
 
             // Fonction afficher annonce
             function displayJob(job) {
-                var jobHtml = '<h1>' + job.job_title + ' at ' + job.company_name + '</h1>' +
+                var jobHtml = '<h1 class="h1_title_offer">' + job.job_title + ' at ' + job.company_name + '</h1>' +
                     '<h2>' + job.city + '</h2>' +
                     '<h3>' + job.contract_type + '</h3>' +
                     '<h4>' + job.wage + '</h4>' +
                     '<p id="part_text">' + job.description.substr(0, 200) + '...' + '</p>' +
                     '<p id="text_full" style="display: none;">' + job.description + '</p>' +
                     '<button onclick="hide_or_show()" id="toggle_see">See more</button>' +
-                    '<a href="form_applyers.html"><button>apply</button></a>';
+                    '<a href="form_applyers.html" id="a_apply_button"><button id="apply_button">Apply</button></a>';
                 $('#job-container').html(jobHtml);
             }
 
