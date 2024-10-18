@@ -35,7 +35,7 @@
 - Création des pages hypnos et post_job_ad en php relié à form_company en html.permettant l'envoi de nouvelles annonces dans la BDD.
 
 ## Mercredi 16.10.2024
-- Add page to confirm upload of job offer on dev branch.
+- Ajout d'une page pour confirmer l'upload d'une offre d'emploi.
 - Création de la page regroupant toute les offres en php avec l'option "learn more".
 
 ## Jeudi 17.10.2024
