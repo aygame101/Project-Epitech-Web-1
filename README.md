@@ -1,5 +1,5 @@
 To do:
-- toutes les pages en PHP
+- passer toutes les pages en PHP
 - css :
 	- admin (attendre fin gaspard)
 	- form_applyers
