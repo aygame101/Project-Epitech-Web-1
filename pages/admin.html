@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style></style>
+</head>
+
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <div id="tableSelector">
+        <h2>Select a table to manage:</h2>
+        <select id="tableSelect">
+        </select>
+    </div>
+
+    <div id="tableData" class="table-container">
+    </div>
+
+    <div id="formContainer">
+    </div>
+
+    <script>
+        let currentTable = '';
+
+        function loadTableNames() {
+            fetch('http://localhost:8000/table_names')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('tableSelect');
+                    select.innerHTML = '';
+                    data.table_names.forEach(tableName => {
+                        const option = document.createElement('option');
+                        option.value = tableName;
+                        option.textContent = tableName;
+                        select.appendChild(option);
+                    });
+                    loadTableData();
+                });
+        }
+
+        function loadTableData() {
+            currentTable = document.getElementById('tableSelect').value;
+            fetch(`http://localhost:8000/${currentTable}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableContainer = document.getElementById('tableData');
+                    tableContainer.innerHTML = '';
+
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    const tbody = document.createElement('tbody');
+
+                    const headerRow = document.createElement('tr');
+                    Object.keys(data[currentTable][0]).forEach(key => {
+                        const th = document.createElement('th');
+                        th.textContent = key;
+                        headerRow.appendChild(th);
+                    });
+                    const actionsTh = document.createElement('th');
+                    actionsTh.textContent = 'Actions';
+                    headerRow.appendChild(actionsTh);
+                    thead.appendChild(headerRow);
+
+                    data[currentTable].forEach(item => {
+                        const row = document.createElement('tr');
+                        Object.values(item).forEach(value => {
+                            const cell = document.createElement('td');
+                            cell.textContent = value;
+                            row.appendChild(cell);
+                        });
+                        const actionsCell = document.createElement('td');
+                        actionsCell.innerHTML = `
+                    <button onclick="editItem(${item.id})">Edit</button>
+                    <button onclick="deleteItem(${item.id})">Delete</button>
+                `;
+                        row.appendChild(actionsCell);
+                        tbody.appendChild(row);
+                    });
+
+                    table.appendChild(thead);
+                    table.appendChild(tbody);
+                    tableContainer.appendChild(table);
+
+                    createForm();
+                });
+        }
+
+        loadTableNames();
+        document.getElementById('tableSelect').addEventListener('change', loadTableData);
+
+    </script>
+</body>
+
+</html>

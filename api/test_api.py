@@ -1,19 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import logging
-from flask_cors import CORS
-from sqlalchemy import func
 
+from sqlalchemy import func
+from sqlalchemy import inspect
+
+from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/test"  # replace with your database credentials
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/test"  #nom + info de connexion de la database
 db = SQLAlchemy(app)
 
 
-# Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Define models
+# definire les models
 class People(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_applier = db.Column(db.Integer, nullable=False)
@@ -46,7 +48,7 @@ class RequestStorage(db.Model):
     applayer_info = db.Column(db.Integer, db.ForeignKey('people.id'))
     id_company = db.Column(db.Integer, db.ForeignKey('companies.id'))
 
-# API routes
+# routes de bases
 @app.route("/people", methods=["GET"])
 def get_people():
     people = People.query.all()
@@ -151,25 +153,30 @@ def create_job_ads():
     db.session.commit()
     return jsonify({"message": "job_ads created successfully"})
 
-@app.route("/job_ads/<id>", methods=["GET"])
+@app.route("/job_ads/<int:id>", methods=["GET"])
 def get_job_ads_by_id(id):
     ad = JobAds.query.get(id)
     if ad is None:
         return jsonify({"message": "job_ads not found"}), 404
-    return jsonify({"id": ad.id, "company_name": ad.company_name, "poste": ad.poste, "lieu": ad.lieu, "salaire": ad.salaire, "contrat": ad.contrat, "description": ad.description})
+    return jsonify({
+        "id": ad.id,
+        "company_name": ad.company_name,
+        "job_title": ad.job_title,
+        "city": ad.city,
+        "wage": ad.wage,
+        "contract_type": ad.contract_type,
+        "description_job": ad.description_job,
+        "mail_in_charge": ad.mail_in_charge
+    })
 
-@app.route("/job_ads/<id>", methods=["PUT"])
+@app.route("/job_ads/<int:id>", methods=["PUT"])
 def update_job_ads(id):
     ad = JobAds.query.get(id)
     if ad is None:
         return jsonify({"message": "job_ads not found"}), 404
     data = request.get_json()
-    ad.company_name = data["company_name"]
-    ad.poste = data["poste"]
-    ad.lieu = data["lieu"]
-    ad.salaire = data["salaire"]
-    ad.contrat = data["contrat"]
-    ad.description = data["description"]
+    for key, value in data.items():
+        setattr(ad, key, value)
     db.session.commit()
     return jsonify({"message": "job_ads updated successfully"})
 
@@ -193,17 +200,15 @@ def get_job_titles():
 def get_contract_types():
     contract_types = db.session.query(JobAds.contract_type).distinct().all()
     return jsonify({"contract_types": [type[0] for type in contract_types]})
-
+# le script de get_location permet de n'afficher que les noms de villes
 @app.route("/locations", methods=["GET"])
 def get_locations():
-    # Utilisez une expression régulière pour extraire la première partie avant la virgule ou le premier chiffre
     locations = db.session.query(
         func.regexp_replace(
-            func.regexp_replace(JobAds.city, r',.*$', ''),  # Supprime tout après la virgule
-            r'\s+\d.*$', ''  # Supprime tout après le premier chiffre (y compris l'espace avant)
+            func.regexp_replace(JobAds.city, r',.*$', ''),  
+            r'\s+\d.*$', '' 
         ).label('city')
     ).distinct().order_by('city').all()
-    # Nettoyez les résultats et supprimez les doublons
     clean_locations = list(set(location.city.strip().capitalize() for location in locations if location.city))
     return jsonify({"locations": clean_locations})
 
@@ -228,7 +233,15 @@ def search_jobs():
     output = [{"id": ad.id, "company_name": ad.company_name, "job_title": ad.job_title, "city": ad.city, "wage": ad.wage, "contract_type": ad.contract_type, "description": ad.description_job} for ad in results]
     return jsonify({"job_ads": output})
 
-    #lance l'api
+    #route pour menu de la page admin
+    
+@app.route("/table_names", methods=["GET"])
+def get_table_names():
+    inspector = inspect(db.engine)
+    table_names = inspector.get_table_names()
+    return jsonify({"table_names": table_names})
+
+    #lance l'API
     
 if __name__ == "__main__":
     app.run(debug=True, port=8000)

@@ -5,15 +5,13 @@ CREATE TABLE people (
     name VARCHAR(100),
     firstname VARCHAR(100),
     phone VARCHAR(20),
-    password VARCHAR(255),
-    salt VARCHAR (255)
+    password VARCHAR(255)
 );
 
 CREATE TABLE companies (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    salt VARCHAR (255) NOT NULL,
     UNIQUE(name)  -- Ensures the company name is unique
 );
 
