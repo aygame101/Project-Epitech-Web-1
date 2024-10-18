@@ -1,46 +1,42 @@
 <?php
 session_start();
 
-
-$conn = new mysqli("localhost", "root", "", "web_project");
+$conn = new mysqli("localhost", "root", "", "test");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$error = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = $_POST['username'];
     $password = $_POST['password'];
+    $type = $_POST['type_person'];
     
-   
-    $sql_applier = "SELECT * FROM people WHERE mail = ?";
-    $sql_company = "SELECT * FROM companies WHERE name = ?";
+    if ($type == 'company') {
+        $sql = "SELECT * FROM companies WHERE name = ?";
+    } else {
+        $sql = "SELECT * FROM people WHERE mail = ?";
+    }
     
-    $stmt_applier = $conn->prepare($sql_applier);
-    $stmt_applier->bind_param("s", $email);
-    $stmt_applier->execute();
-    $result_applier = $stmt_applier->get_result();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
-    $stmt_company = $conn->prepare($sql_company);
-    $stmt_company->bind_param("s", $email);
-    $stmt_company->execute();
-    $result_company = $stmt_company->get_result();
-    
-    if ($result_applier->num_rows == 1) {
-        $row = $result_applier->fetch_assoc();
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_type'] = 'applier';
-            header("Location: form_applyers.html");
-        } else {
-            $error = "Invalid email or password";
-        }
-    } elseif ($result_company->num_rows == 1) {
-        $row = $result_company->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_type'] = 'company';
-            header("Location: form_company.html");
+            $_SESSION['user_type'] = $type;
+            $conn->close();
+            if ($type == 'company') {
+                header("Location: form_company.html");
+            } else {
+                header("Location: ../index.php");
+            }
+            exit();
         } else {
             $error = "Invalid email or password";
         }
@@ -67,18 +63,15 @@ $conn->close();
     </div>
 
     <div class="div_form">
-    <form action="" method="get">
-        <select id="type_person" onchange="updateChamp()" name="type_person">
-            <option selected="true" disabled="true">Are you a company or an applier</option>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <select id="type_person" name="type_person" required>
+            <option value="" selected disabled>Are you a company or an applier</option>
             <option value="company">Company</option>
             <option value="applier">Applier</option>
-            <!-- verifie si c'est un entreprise ou un applier -->
-            <!-- puis regarde la bonne bbd -->
         </select>
 
-        <?php if(isset($error)) { echo "<p style='color: red;'>$error</p>"; } ?>
+        <?php if($error) { echo "<p style='color: red;'>$error</p>"; } ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <input type="text" id="username" name="username" placeholder="Username or Mail" required>
 
         <input type="password" id="password" name="password" placeholder="Password" required>
