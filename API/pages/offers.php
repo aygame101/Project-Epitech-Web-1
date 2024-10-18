@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - J0B F1ND3R</title>
-    <link rel="stylesheet" href="../css/style_search_results.css">
+    <link rel="stylesheet" href="">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../JS/script.js"></script>
 </head>
 
 <body>
@@ -35,7 +36,10 @@
                     '<h2>' + job.city + '</h2>' +
                     '<h3>' + job.contract_type + '</h3>' +
                     '<h4>' + job.wage + '</h4>' +
-                    '<p>' + job.description + '</p>';
+                    '<p id="part_text">' + job.description.substr(0,200) + '...' + '</p>' +
+                    '<p id="text_full" style="display: none;">' + job.description + '</p>' +
+                    '<button onclick="hide_or_show()" id="toggle_see">See more</button>' +
+                    '<a href="form_applyers.html"><button>apply</button></a>';
                 $('#job-container').html(jobHtml);
             }
 
