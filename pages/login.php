@@ -35,8 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['connected'] = true;
             if ($type == 'company') {
                 header("Location: form_company.php");
+                $_SESSION['company'] = true;
             } else {
                 header("Location: ../index.php");
+                $_SESSION['candidate'] = true;
             }
             exit();
         } else {

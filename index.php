@@ -59,7 +59,12 @@
         if (!isset($_SESSION['connected'])) {
             echo '<a class="login" href="pages/login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
-            echo '<a class="login" href="#">Account</a>';
+            if (isset($_SESSION['company'])){
+                echo '<a class="login" href="pages/test_comp.html">Account</a>';
+            }
+            else if  (isset($_SESSION['candidate'])){
+                echo '<a class="login" href="pages/test_applier.html">Account</a>';
+            }
         }
         ?>
     </div>
@@ -87,7 +92,7 @@
             <input type="submit" value="Search" />
         </form>
 
-        <h3 class="post_job_offer"><a href="pages/form_company.html">Post a job offer</a></h3>
+        <h3 class="post_job_offer"><a href="pages/form_company.php">Post a job offer</a></h3>
 
     </div>
 </body>
