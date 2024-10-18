@@ -27,7 +27,7 @@
 
 ## Lundi 14.10.2021
 - Follow-up --> utilisation de flask (python) pour l'API.
-- Avancement de la partie PHP sans API (ptdr le bouffon qui fait ça).
+- Avancement de la partie PHP sans API.
 
 ## Mardi 15.10.2024
 - Réalisation de l'API ainsi que ses test.
