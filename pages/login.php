@@ -55,8 +55,8 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="../css/st_connexion.html.css">
+    <script src="../js/script.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>J0B F1ND3R - Login</title>
@@ -65,18 +65,30 @@ $conn->close();
     <div class="div_titre_acc">
         <h1 class="titre_acc">J0B F1ND3R</h1>
     </div>
+
     <div class="div_form">
-        <h2>Please login here</h2>
+    <form action="" method="get">
+        <select id="type_person" onchange="updateChamp()" name="type_person">
+            <option selected="true" disabled="true">Are you a company or an applier</option>
+            <option value="company">Company</option>
+            <option value="applier">Applier</option>
+            <!-- verifie si c'est un entreprise ou un applier -->
+            <!-- puis regarde la bonne bbd -->
+        </select>
 
         <?php if(isset($error)) { echo "<p style='color: red;'>$error</p>"; } ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <input type="text" name="email" id="email" placeholder="Your email or company name" required>
+        <input type="text" id="username" name="username" placeholder="Username or Mail" required>
 
-            <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="text" id="password" name="password" placeholder="Password" required>
 
-            <button type="submit" value="login" class="login">Login</button>
-        </form>
+        <input class="connexion" type="submit" value="Connexion"/>
+
+        <a class="register_button" href="register_comp.html">Register as a Company</a>
+        <a class="register_button" href="register_applier.html">Register as an Applier</a>
+
+    </form>
     </div>
 </body>
 </html>

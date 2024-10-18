@@ -12,7 +12,7 @@ CREATE TABLE companies (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    UNIQUE(name)  -- Ensures the company name is unique
+    UNIQUE(name)
 );
 
 CREATE TABLE job_ads (
@@ -28,9 +28,9 @@ CREATE TABLE job_ads (
 
 CREATE TABLE requeststorage (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    id_annonce_postule INT NOT NULL,  -- Reference to an ad from the Advertising table
-    applayer_info INT NOT NULL,       -- Reference to an applicant from the Applayers table
-    id_company INT NOT NULL,          -- Reference to a company from the Companies table
+    id_annonce_postule INT NOT NULL,
+    applayer_info INT NOT NULL,
+    id_company INT NOT NULL,
     FOREIGN KEY (id_annonce_postule) REFERENCES job_ads(id),
     FOREIGN KEY (applayer_info) REFERENCES people(id),
     FOREIGN KEY (id_company) REFERENCES companies(id)

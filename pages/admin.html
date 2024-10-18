@@ -11,6 +11,12 @@
 <body>
     <h1>Admin Dashboard</h1>
 
+    <div id="editFormContainer" style="display: none;">
+        <h2>Edit Item</h2>
+        <form id="editForm">
+        </form>
+    </div>
+
     <div id="tableSelector">
         <h2>Select a table to manage:</h2>
         <select id="tableSelect">
@@ -24,6 +30,16 @@
     </div>
 
     <script>
+        function createForm() {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.innerHTML = `
+                <h2>Add New Item</h2>
+                <form id="addForm">
+                </form>
+            `;
+        
+        }
+
         let currentTable = '';
 
         function loadTableNames() {
@@ -86,7 +102,206 @@
                     tableContainer.appendChild(table);
 
                     createForm();
+                    createAddForm();
                 });
+        }
+
+        function editItem(id) {
+            fetch(`http://localhost:8000/${currentTable}/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const form = document.getElementById('editForm');
+                    form.innerHTML = '';
+        
+                    Object.entries(data).forEach(([key, value]) => {
+                        if (key !== 'id') {
+                            const label = document.createElement('label');
+                            label.textContent = key;
+        
+                            if (key === 'contract_type') {
+                                const select = document.createElement('select');
+                                select.name = key;
+                                select.id = 'contract';
+                                select.required = true;
+        
+                                const options = [
+                                    {id: 'cdi', value: 'CDI', text: 'CDI'},
+                                    {id: 'cdd', value: 'CDD', text: 'CDD'},
+                                    {id: 'half-time', value: 'Half-time', text: 'Half-time'},
+                                    {id: 'internship', value: 'Internship', text: 'Internship'},
+                                    {id: 'apprenticeship', value: 'Apprenticeship', text: 'Apprenticeship'},
+                                    {id: 'freelance', value: 'Freelance', text: 'Freelance'}
+                                ];
+        
+                                options.forEach(opt => {
+                                    const option = document.createElement('option');
+                                    option.id = opt.id;
+                                    option.value = opt.value;
+                                    option.textContent = opt.text;
+                                    if (opt.value === value) {
+                                        option.selected = true;
+                                    }
+                                    select.appendChild(option);
+                                });
+        
+                                label.appendChild(select);
+                            } else {
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.name = key;
+                                input.value = value;
+                                input.placeholder = key;
+                                label.appendChild(input);
+                            }
+        
+                            form.appendChild(label);
+                        }
+                    });
+        
+                    const submitButton = document.createElement('button');
+                    submitButton.textContent = 'Update';
+                    submitButton.onclick = (e) => {
+                        e.preventDefault();
+                        updateItem(id);
+                    };
+                    form.appendChild(submitButton);
+        
+                    const cancelButton = document.createElement('button');
+                    cancelButton.textContent = 'Cancel';
+                    cancelButton.onclick = (e) => {
+                        e.preventDefault();
+                        document.getElementById('editFormContainer').style.display = 'none';
+                    };
+                    form.appendChild(cancelButton);
+        
+                    document.getElementById('editFormContainer').style.display = 'block';
+        
+                    document.getElementById('editFormContainer').scrollIntoView({behavior: "smooth"});
+                });
+        }
+        
+        function updateItem(id) {
+            const form = document.getElementById('editForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+        
+            fetch(`http://localhost:8000/${currentTable}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                document.getElementById('editFormContainer').style.display = 'none';
+                loadTableData();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating the item.');
+            });
+        }
+
+        function deleteItem(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                fetch(`http://localhost:8000/${currentTable}/${id}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(result => {
+                    loadTableData();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the item.');
+                });
+            }
+        }
+
+        function createAddForm() {
+            const form = document.getElementById('addForm');
+            form.innerHTML = '';
+        
+            fetch(`http://localhost:8000/${currentTable}`)
+                .then(response => response.json())
+                .then(data => {
+                    const fields = Object.keys(data[currentTable][0]);
+                    fields.forEach(field => {
+                        if (field !== 'id') {
+                            const label = document.createElement('label');
+                            label.textContent = field;
+        
+                            if (field === 'contract_type') {
+                                const select = document.createElement('select');
+                                select.name = field;
+                                select.id = 'contract';
+                                select.required = true;
+        
+                                const options = [
+                                    {id: 'cdi', value: 'CDI', text: 'CDI'},
+                                    {id: 'cdd', value: 'CDD', text: 'CDD'},
+                                    {id: 'half-time', value: 'Half-time', text: 'Half-time'},
+                                    {id: 'internship', value: 'Internship', text: 'Internship'},
+                                    {id: 'apprenticeship', value: 'Apprenticeship', text: 'Apprenticeship'},
+                                    {id: 'freelance', value: 'Freelance', text: 'Freelance'}
+                                ];
+        
+                                options.forEach(opt => {
+                                    const option = document.createElement('option');
+                                    option.id = opt.id;
+                                    option.value = opt.value;
+                                    option.textContent = opt.text;
+                                    select.appendChild(option);
+                                });
+        
+                                label.appendChild(select);
+                            } else {
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.name = field;
+                                input.placeholder = field;
+                                input.required = true;
+                                label.appendChild(input);
+                            }
+        
+                            form.appendChild(label);
+                        }
+                    });
+        
+                    const submitButton = document.createElement('button');
+                    submitButton.textContent = 'Add Item';
+                    submitButton.onclick = (e) => {
+                        e.preventDefault();
+                        addNewItem();
+                    };
+                    form.appendChild(submitButton);
+                });
+        }
+
+        function addNewItem() {
+            const form = document.getElementById('addForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+        
+            fetch(`http://localhost:8000/${currentTable}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                form.reset();
+                loadTableData();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding the new item.');
+            });
         }
 
         loadTableNames();
