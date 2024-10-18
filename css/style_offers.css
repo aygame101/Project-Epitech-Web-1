@@ -8,11 +8,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-h2 {
-    font-size: 45px;
-    margin-bottom: 5%;
-}
-
 a {
     color: white;
     font-size: 20px;
@@ -47,4 +42,96 @@ a {
     text-decoration: none;
     display: table-cell;
     vertical-align: middle;
+}
+
+
+.h1_title_offer {
+    margin-top: 3%;
+    margin-left: 3%;
+    font-size: 45px;
+}
+
+h2 {
+    margin-left: 3%;
+    font-size: 35px;
+    margin-bottom: 2%;
+}
+
+h3 {
+    margin-left: 3%;
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+h4 {
+    margin-left: 3%;
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+#part_text {
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-right: 20%;
+    margin-bottom: 2%;
+}
+
+#text_full {
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-right: 20%;
+    margin-bottom: 2%;
+}
+
+#toggle_see {
+    margin-left: 3%;
+    height: 40px;
+    border: 5px solid;
+    border-radius: 15px;
+    width:7%;
+    color: #eb3e81;
+    border-color: #091723;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#apply_button {
+    margin-left: 1%;
+    height: 40px;
+    border: 5px solid;
+    border-radius: 15px;
+    width:7%;
+    color: #eb3e81;
+    border-color: #091723;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#prev {
+    margin-top: 2%;
+    margin-left: 3%;
+    height: 40px;
+    border: 5px solid;
+    border-radius: 15px;
+    width:7%;
+    color: #eb3e81;
+    border-color: #091723;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#next {
+    margin-left: 1%;
+    height: 40px;
+    border: 5px solid;
+    border-radius: 15px;
+    width:7%;
+    color: #eb3e81;
+    border-color: #091723;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
 }
