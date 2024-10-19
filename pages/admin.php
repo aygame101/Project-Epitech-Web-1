@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    header("Location: login.php");
+    exit();}
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,20 +51,22 @@
         let currentTable = '';
 
         function loadTableNames() {
-            fetch('http://localhost:8000/table_names')
-                .then(response => response.json())
-                .then(data => {
-                    const select = document.getElementById('tableSelect');
-                    select.innerHTML = '';
-                    data.table_names.forEach(tableName => {
-                        const option = document.createElement('option');
-                        option.value = tableName;
-                        option.textContent = tableName;
-                        select.appendChild(option);
-                    });
-                    loadTableData();
-                });
-        }
+    fetch('http://localhost:8000/table_names')
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('tableSelect');
+            select.innerHTML = '';
+            data.table_names.forEach(tableName => {
+                if (tableName.toLowerCase() !== 'admin') {
+                    const option = document.createElement('option');
+                    option.value = tableName;
+                    option.textContent = tableName;
+                    select.appendChild(option);
+                }
+            });
+            loadTableData();
+        });
+}
 
         function loadTableData() {
             currentTable = document.getElementById('tableSelect').value;
@@ -362,5 +371,4 @@
 
     </script>
 </body>
-
 </html>

@@ -49,6 +49,11 @@ class RequestStorage(db.Model):
     id_annonce_postule = db.Column(db.Integer, db.ForeignKey('job_ads.id'))
     applayer_info = db.Column(db.Integer, db.ForeignKey('people.id'))
     id_company = db.Column(db.Integer, db.ForeignKey('companies.id'))
+    
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
 
 # routes de bases
 @app.route("/people", methods=["GET"])
@@ -228,7 +233,71 @@ def delete_job_ads(id):
     db.session.delete(ad)
     db.session.commit()
     return jsonify({"message": "job_ads deleted successfully"})
+
+@app.route("/admin", methods=["GET"])
+def get_admins():
+    admins = Admin.query.all()
+    output = [{"id": admin.id, "username": admin.username} for admin in admins]
+    return jsonify({"admins": output})
+
+@app.route("/admin", methods=["POST"])
+def create_admin():
+    data = request.get_json()
+    hashed_password = generate_password_hash(data["password"])
+    new_admin = Admin(
+        username=data["username"],
+        password=hashed_password
+    )
+    db.session.add(new_admin)
+    db.session.commit()
+    return jsonify({"message": "Admin created successfully"}), 201
+
+@app.route("/admin/<id>", methods=["GET"])
+def get_admin(id):
+    admin = Admin.query.get(id)
+    if admin is None:
+        return jsonify({"message": "Admin not found"}), 404
+    return jsonify({
+        "id": admin.id, 
+        "username": admin.username
+    })
     
+@app.route("/admin/<id>", methods=["PUT"])
+def update_admin(id):
+    admin = Admin.query.get(id)
+    if admin is None:
+        return jsonify({"message": "Admin not found"}), 404
+    data = request.get_json()
+    admin.username = data.get("username", admin.username)
+    if "password" in data:
+        hashed_password = generate_password_hash(data["password"])
+        admin.password = hashed_password
+    
+    db.session.commit()
+    return jsonify({"message": "Admin updated successfully"})
+
+@app.route("/admin/<id>", methods=["DELETE"])
+def delete_admin(id):
+    admin = Admin.query.get(id)
+    if admin is None:
+        return jsonify({"message": "Admin not found"}), 404
+    db.session.delete(admin)
+    db.session.commit()
+    return jsonify({"message": "Admin deleted successfully"})
+
+@app.route("/admin/login", methods=["POST"])
+def login_admin():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    admin = Admin.query.filter_by(username=username).first()
+
+    if admin and check_password_hash(admin.password, password):
+        return jsonify({"id": admin.id, "message": "Login successful"}), 200
+    else:
+        return jsonify({"message": "Invalid username or password"}), 401
+
     #routes pour l'index.php
     
 @app.route("/job_titles", methods=["GET"])
@@ -279,7 +348,8 @@ def search_jobs():
 def get_table_names():
     inspector = inspect(db.engine)
     table_names = inspector.get_table_names()
-    return jsonify({"table_names": table_names})
+    filtered_table_names = [name for name in table_names if name.lower() != 'admin']
+    return jsonify({"table_names": filtered_table_names})
 
     #pour la page login
     

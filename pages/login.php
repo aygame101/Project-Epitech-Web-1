@@ -13,7 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'password' => $password
     ];
     
-    $endpoint = ($type == 'company') ? 'http://localhost:8000/companies/login' : 'http://localhost:8000/people/login';
+    if ($type == 'admin') {
+        $endpoint = 'http://localhost:8000/admin/login';
+        $data['username'] = $email; // Les admins utilisent un nom d'utilisateur au lieu d'un email
+    } elseif ($type == 'company') {
+        $endpoint = 'http://localhost:8000/companies/login';
+    } else {
+        $endpoint = 'http://localhost:8000/people/login';
+    }
     
     $ch = curl_init($endpoint);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -34,13 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($type == 'company') {
             $_SESSION['company'] = true;
             header("Location: form_company.php");
-        } else {
+        } else if ($type == "applier") {
             $_SESSION['candidate'] = true;
             header("Location: ../index.php");
+        } else if ($type == "admin") {
+            $_SESSION['admin'] = true;
+            header("Location: admin.php");
         }
         exit();
     } else {
-        $error = "Invalid email or password";
+        $error = "Invalid email/username or password";
     }
 }
 ?>
@@ -66,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="" selected disabled>Are you a company or an applier</option>
             <option value="company">Company</option>
             <option value="applier">Applier</option>
+            <option value="admin">Admin</option>
         </select>
 
         <?php if($error) { echo "<p style='color: black;'>$error</p>"; } ?>

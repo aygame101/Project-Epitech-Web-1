@@ -36,6 +36,11 @@ CREATE TABLE requeststorage (
     FOREIGN KEY (id_company) REFERENCES companies(id)
 );
 
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    username  VARCHAR(255) NOT NULL,
+    password  VARCHAR(255) NOT NULL
+);
 
 --partie test
 ```
