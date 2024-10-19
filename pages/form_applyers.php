@@ -3,7 +3,7 @@ session_start();
 
 $name = $firstname = $phone = $mail = '';
 
-// verif si un utilisateur est connecté
+// Vérif si un utilisateur est connecté
 if (isset($_SESSION['connected']) && isset($_SESSION['candidate']) && isset($_SESSION['user_id'])) {
     $conn = mysqli_connect("localhost", "root", "", "test");
 
@@ -27,6 +27,37 @@ if (isset($_SESSION['connected']) && isset($_SESSION['candidate']) && isset($_SE
 
     mysqli_close($conn);
 }
+
+$job_ad_id = isset($_GET['id']) ? $_GET['id'] : null;
+
+if (!$job_ad_id) {
+    die("Aucun ID d'annonce n'a été fourni.");
+}
+
+$ch = curl_init("http://localhost:8000/job_ads/{$job_ad_id}");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+$job_ad = json_decode($response, true);
+
+if (!$job_ad) {
+    die("Annonce non trouvée.");
+}
+
+$company_name = urlencode($job_ad['company_name']);
+$ch = curl_init("http://localhost:8000/companies/search?name={$company_name}");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+$company = json_decode($response, true);
+
+if (!isset($company['id'])) {
+    die("Entreprise non trouvée.");
+}
+
+$company_id = $company['id'];
 ?>
 
 <!DOCTYPE html>
@@ -49,22 +80,22 @@ if (isset($_SESSION['connected']) && isset($_SESSION['candidate']) && isset($_SE
 
         <?php
         if (!isset($_SESSION['connected'])) {
-            echo '<a class="login" href="pages/login.php">Login</a>';
+            echo '<a class="login" href="login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
             if (isset($_SESSION['company'])) {
-                echo '<a class="login" href="pages/account_company.php">Account</a>';
+                echo '<a class="login" href="account_company.php">Account</a>';
             } else if (isset($_SESSION['candidate'])) {
-                echo '<a class="login" href="pages/account_applier.php">Account</a>';
+                echo '<a class="login" href="account_applier.php">Account</a>';
             } else if (isset($_SESSION['admin'])) {
-                echo '<a class="login" href="pages/admin.php">Account</a>';
+                echo '<a class="login" href="admin.php">Account</a>';
             }
         }
         ?>
     </div>
 
     <div class="div_form">
-        <form action="" method="get">
-            <div>
+        <form action="../api/insert_postuler.php" method="post">
+        <div>
                 <label for="name">Your name : </label>
                 <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
             </div>
@@ -84,9 +115,12 @@ if (isset($_SESSION['connected']) && isset($_SESSION['candidate']) && isset($_SE
                 <input type="email" id="mail" name="mail" value="<?php echo htmlspecialchars($mail); ?>" required>
             </div>
 
-            <input class="valider" type="submit" value="Valider" />
+            <!-- Champs pour stocker les id -->
+            <input type="hidden" name="job_ad_id" value="<?php echo htmlspecialchars($job_ad_id); ?>">
+            <input type="hidden" name="company_id" value="<?php echo htmlspecialchars($company_id); ?>">
+
+            <input class="valider" type="submit" value="Valider"/>
         </form>
     </div>
 </body>
-
 </html>

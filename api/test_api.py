@@ -45,6 +45,7 @@ class JobAds(db.Model):
     description_job = db.Column(db.Text, nullable=False)
 
 class RequestStorage(db.Model):
+    __tablename__ = 'requeststorage'
     id = db.Column(db.Integer, primary_key=True)
     id_annonce_postule = db.Column(db.Integer, db.ForeignKey('job_ads.id'))
     applayer_info = db.Column(db.Integer, db.ForeignKey('people.id'))
@@ -389,7 +390,41 @@ def login_companies():
     else:
         return jsonify({"message": "Invalid company name or password"}), 401
 
+    #route pour lorsque l'on postule
+    
+@app.route("/apply", methods=["POST"])
+def apply_for_job():
+    data = request.json
+    required_fields = ['id_annonce_postule', 'applayer_info', 'id_company']
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
 
+    try:
+        new_request = RequestStorage(
+            id_annonce_postule=data['id_annonce_postule'],
+            applayer_info=data['applayer_info'],
+            id_company=data['id_company']
+        )
+        db.session.add(new_request)
+        db.session.commit()
+        return jsonify({"message": "Application submitted successfully", "id": new_request.id}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+    #recherche un entreprise par son nom
+@app.route("/companies/search", methods=["GET"])
+def search_company():
+    name = request.args.get('name')
+    if not name:
+        return jsonify({"error": "Company name is required"}), 400
+    
+    company = Companies.query.filter_by(name=name).first()
+    if company:
+        return jsonify({"id": company.id, "name": company.name}), 200
+    else:
+        return jsonify({"error": "Company not found"}), 404
+    
     #lance l'API
     
 if __name__ == "__main__":

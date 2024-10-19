@@ -55,7 +55,7 @@
                     '<p id="part_text">' + job.description.substr(0, 200) + '...' + '</p>' +
                     '<p id="text_full" style="display: none;">' + job.description + '</p>' +
                     '<button onclick="hide_or_show()" id="toggle_see">See more</button>' +
-                    '<a href="form_applyers.php" id="a_apply_button"><button id="apply_button">Apply</button></a>';
+                    '<a href="form_applyers.php?id=' + job.id + '" id="a_apply_button"><button id="apply_button">Apply</button></a>';
                 $('#job-container').html(jobHtml);
             }
 
