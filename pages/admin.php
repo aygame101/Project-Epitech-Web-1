@@ -18,6 +18,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
 
 <body>
     <a href="../index.php"><h1>Admin Dashboard</h1></a>
+    <a href="logout.php">logout</a>
 
     <div id="tableSelector">
         <h2>Select a table to manage:</h2>

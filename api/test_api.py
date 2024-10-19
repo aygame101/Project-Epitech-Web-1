@@ -66,24 +66,34 @@ def get_people():
 def add_person():
     data = request.json
     
-    required_fields = ['name', 'email', 'password', 'is_applier']
+    required_fields = ['name', 'mail', 'password', 'is_applier']
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing required fields"}), 400
 
     hashed_password = generate_password_hash(data['password'])
 
     try:
-        conn = sqlite3.connect('your_database.db')
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO people (name, email, password, is_applier)
-            VALUES (?, ?, ?, ?)
-        ''', (data['name'], data['email'], hashed_password, data['is_applier']))
-        conn.commit()
-        new_id = cursor.lastrowid
-        conn.close()
-        return jsonify({"message": "Person added successfully", "id": new_id}), 201
-    except sqlite3.Error as e:
+        new_person = People(
+            name=data['name'],
+            mail=data['mail'],
+            password=hashed_password,
+            is_applier=data['is_applier'],
+            firstname=data.get('firstname'),
+            phone=data.get('phone')
+        )
+        db.session.add(new_person)
+        db.session.commit()
+        return jsonify({
+            "message": "Person added successfully", 
+            "id": new_person.id,
+            "name": new_person.name,
+            "mail": new_person.mail,
+            "is_applier": new_person.is_applier,
+            "firstname": new_person.firstname,
+            "phone": new_person.phone
+        }), 201
+    except Exception as e:
+        db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
 @app.route("/people/<id>", methods=["GET"])

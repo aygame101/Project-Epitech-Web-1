@@ -9,7 +9,7 @@ $pwd = $_POST['password'];
 $data = array(
   'name' => $name,
   'firstname' => $firstname,
-  'email' => $mail,
+  'mail' => $mail,
   'phone' => $phone,
   'password' => $pwd,
   'is_applier' => 1
@@ -38,6 +38,7 @@ if (curl_errno($ch)) {
   $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if ($http_code == 201) {
     echo "Inscription réussie !";
+    header('location: ../pages/login.php');
   } else {
     echo "Erreur lors de l'inscription. Code HTTP : " . $http_code;
   }
@@ -45,4 +46,4 @@ if (curl_errno($ch)) {
 
 curl_close($ch);
 
-header('location: ../pages/login.php');
+

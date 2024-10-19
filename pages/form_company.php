@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="../css/style_form_company.css">
     <link rel="stylesheet" href="../css/no_uderline.css">
@@ -8,30 +9,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>J0B F1ND3R</title>
 </head>
+
 <body>
     <div class="div_titre_acc">
-        <a href="../index.php"><h1 class="titre_acc">J0B F1ND3R</h1></a>
+        <a href="../index.php">
+            <h1 class="titre_acc">J0B F1ND3R</h1>
+        </a>
+        <?php
+        $conn = mysqli_connect("localhost", "root", "", "test");
 
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        $sql = "SELECT name FROM companies ORDER BY name";
+        $result = mysqli_query($conn, $sql);
+
+        $companies = array();
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $companies[] = $row['name'];
+            }
+        }
+
+        mysqli_close($conn);
+        ?>
         <?php
         session_start();
         if (!isset($_SESSION['connected'])) {
             echo '<a class="login" href="pages/login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
             if (isset($_SESSION['company'])){
-                echo '<a class="login" href="account_company.php">Account</a>';
+                echo '<a class="login" href="pages/account_company.php">Account</a>';
             }
             else if  (isset($_SESSION['candidate'])){
-                echo '<a class="login" href="account_applier.php">Account</a>';
+                echo '<a class="login" href="pages/account_applier.php">Account</a>';
             }
-        }
+            else if (isset($_SESSION['admin'])){
+                echo '<a class="login" href="pages/admin.php">Account</a>';
+        }}
         ?>
 
-    <div class="div_form">
-        <h2>Create your Job advertisement here :</h2>
+        <div class="div_form">
+            <h2>Create your Job advertisement here :</h2>
 
-        <form action="../api/post_job_ad.php" method="POST">
-                <input type="text" name="company_name" id="company_name" placeholder="Name of the Company" required>
+            <form action="../api/post_job_ad.php" method="POST" id="jobAdForm">
+                <select name="company_name" id="company_name" required onchange="checkNewCompany(this)">
+                    <option value="" disabled selected>Select a company</option>
+                    <?php foreach ($companies as $company): ?>
+                        <option value="<?php echo htmlspecialchars($company); ?>"><?php echo htmlspecialchars($company); ?></option>
+                    <?php endforeach; ?>
+                    <option value="new_company">Add a new company</option>
+                </select>
 
+                <input type="text" name="new_company_name" id="new_company_name" style="display: none;" placeholder="Enter new company name">
+
+                <script>
+                    function checkOther(select) {
+                        if (select.value == 'other') {
+                            document.getElementById('new_company_name').style.display = 'block';
+                            document.getElementById('new_company_name').required = true;
+                        } else {
+                            document.getElementById('new_company_name').style.display = 'none';
+                            document.getElementById('new_company_name').required = false;
+                        }
+                    }
+                </script>
                 <input type="text" name="city" id="city" placeholder="City" required>
 
                 <input type="text" name="job" id="job" placeholder="Job title" required>
@@ -49,13 +91,20 @@
 
                 <input type="text" name="in_charge" id="in_charge" placeholder="Mail person in charge" required>
 
-                <textarea type="text" name="description_job" id="description_job" placeholder="Job description "required></textarea>
+                <textarea type="text" name="description_job" id="description_job" placeholder="Job description " required></textarea>
                 <!-- textarea pour garder les saut de ligne-->
                 <input type="submit" value="Submit" class="submit">
-        </form>
-    </div>
+            </form>
+            <script>
+                function checkNewCompany(select) {
+                    if (select.value === 'new_company') {
+                        window.location.href = 'register_comp.php';
+                    }
+                }
+            </script>
+        </div>
 
-    </body>
+</body>
 
 
 

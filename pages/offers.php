@@ -21,12 +21,14 @@
             echo '<a class="login" href="pages/login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
             if (isset($_SESSION['company'])){
-                echo '<a class="login" href="account_company.php">Account</a>';
+                echo '<a class="login" href="pages/account_company.php">Account</a>';
             }
             else if  (isset($_SESSION['candidate'])){
-                echo '<a class="login" href="account_applier.php">Account</a>';
+                echo '<a class="login" href="pages/account_applier.php">Account</a>';
             }
-        }
+            else if (isset($_SESSION['admin'])){
+                echo '<a class="login" href="pages/admin.php">Account</a>';
+        }}
         ?>
     </div>
 

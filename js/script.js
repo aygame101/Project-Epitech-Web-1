@@ -1,9 +1,9 @@
 function updateChamp() {
     var champ1 = document.getElementById("type_person");
     if (champ1.value === "company") {
-        document.getElementById('username').placeholder='Username';
+        document.getElementById('username').placeholder = 'Username';
     } else {
-        document.getElementById('username').placeholder='Mail';
+        document.getElementById('username').placeholder = 'Mail';
     }
 }
 
@@ -24,8 +24,9 @@ function hide_or_show() {
 function show_pass() {
     var x = document.getElementById("password");
     if (x.type === "password") {
-      x.type = "text";
+        x.type = "text";
     } else {
-      x.type = "password";
+        x.type = "password";
     }
-  }
+}
+

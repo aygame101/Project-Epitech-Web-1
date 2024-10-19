@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'password' => $password
     ];
     
-    if ($type == 'admin') {
+    if ($email == 'admin') {
         $endpoint = 'http://localhost:8000/admin/login';
-        $data['username'] = $email; // Les admins utilisent un nom d'utilisateur au lieu d'un email
+        $data['username'] = $email;
     } elseif ($type == 'company') {
         $endpoint = 'http://localhost:8000/companies/login';
     } else {
@@ -38,15 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $result['id'];
         $_SESSION['user_type'] = $type;
         $_SESSION['connected'] = true;
-        if ($type == 'company') {
-            $_SESSION['company'] = true;
-            header("Location: form_company.php");
-        } else if ($type == "applier") {
+        if ($email == "admin") {
+            $_SESSION['admin'] = true;
+            header("Location: admin.php"); 
+        } else if ($type == "applier" | $email !== "admin") {
             $_SESSION['candidate'] = true;
             header("Location: ../index.php");
-        } else if ($type == "admin") {
-            $_SESSION['admin'] = true;
-            header("Location: admin.php");
+        } else if ($type == 'company' | $email !== "admin") {
+                $_SESSION['company'] = true;
+                header("Location: form_company.php");
         }
         exit();
     } else {
@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="" selected disabled>Are you a company or an applier</option>
             <option value="company">Company</option>
             <option value="applier">Applier</option>
-            <option value="admin">Admin</option>
         </select>
 
         <?php if($error) { echo "<p style='color: black;'>$error</p>"; } ?>

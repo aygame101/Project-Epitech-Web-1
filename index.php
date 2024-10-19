@@ -65,7 +65,9 @@
             else if  (isset($_SESSION['candidate'])){
                 echo '<a class="login" href="pages/account_applier.php">Account</a>';
             }
-        }
+            else if (isset($_SESSION['admin'])){
+                echo '<a class="login" href="pages/admin.php">Account</a>';
+        }}
         ?>
     </div>
 
