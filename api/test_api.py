@@ -86,7 +86,13 @@ def get_person(id):
     person = People.query.get(id)
     if person is None:
         return jsonify({"message": "Person not found"}), 404
-    return jsonify({"id": person.id, "name": person.name, "firstname": person.firstname, "mail": person.mail})
+    return jsonify({
+        "id": person.id, 
+        "name": person.name, 
+        "firstname": person.firstname, 
+        "mail": person.mail,
+        "password": ""
+    })
 
 @app.route("/people/<id>", methods=["PUT"])
 def update_person(id):
@@ -94,9 +100,13 @@ def update_person(id):
     if person is None:
         return jsonify({"message": "Person not found"}), 404
     data = request.get_json()
-    person.name = data["name"]
-    person.firstname = data["firstname"]
-    person.mail = data["mail"]
+    person.name = data.get("name", person.name)
+    person.firstname = data.get("firstname", person.firstname)
+    person.mail = data.get("mail", person.mail)
+    if "password" in data:
+        hashed_password = generate_password_hash(data["password"])
+        person.password = hashed_password
+    
     db.session.commit()
     return jsonify({"message": "Person updated successfully"})
 
@@ -132,15 +142,23 @@ def get_company(id):
     company = Companies.query.get(id)
     if company is None:
         return jsonify({"message": "Company not found"}), 404
-    return jsonify({"id": company.id, "name": company.name})
-
+    return jsonify({
+        "id": company.id, 
+        "name": company.name,
+        "password": ""
+    })
+    
 @app.route("/companies/<id>", methods=["PUT"])
 def update_company(id):
     company = Companies.query.get(id)
     if company is None:
         return jsonify({"message": "Company not found"}), 404
     data = request.get_json()
-    company.name = data["name"]
+    company.name = data.get("name", company.name)
+    if "password" in data:
+        hashed_password = generate_password_hash(data["password"])
+        company.password = hashed_password
+    
     db.session.commit()
     return jsonify({"message": "Company updated successfully"})
 

@@ -192,6 +192,12 @@
                                 });
         
                                 label.appendChild(select);
+                            } else if (key === 'password') {
+                                const input = document.createElement('input');
+                                input.type = 'password';
+                                input.name = key;
+                                input.placeholder = 'Enter new password (leave empty to keep current)';
+                                label.appendChild(input);
                             } else {
                                 const input = document.createElement('input');
                                 input.type = 'text';
@@ -231,6 +237,10 @@
             const form = document.getElementById('editForm');
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
+        
+            if (data.password === '') {
+                delete data.password;
+            }
         
             fetch(`http://localhost:8000/${currentTable}/${id}`, {
                 method: 'PUT',
