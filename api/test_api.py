@@ -52,7 +52,7 @@ class RequestStorage(db.Model):
 @app.route("/people", methods=["GET"])
 def get_people():
     people = People.query.all()
-    output = [{"id": person.id, "name": person.name, "firstname": person.firstname, "mail": person.mail} for person in people]
+    output = [{"id": person.id, "name": person.name, "firstname": person.firstname, "mail": person.mail, "password": person.password} for person in people]
     return jsonify({"people": output})
 
 @app.route("/people", methods=["POST"])
@@ -94,7 +94,7 @@ def delete_person(id):
 @app.route("/companies", methods=["GET"])
 def get_companies():
     companies = Companies.query.all()
-    output = [{"id": company.id, "name": company.name} for company in companies]
+    output = [{"id": company.id, "name": company.name, "password": company.password} for company in companies]
     return jsonify({"companies": output})
 
 @app.route("/companies", methods=["POST"])

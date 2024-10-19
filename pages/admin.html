@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/no_uderline.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <title>Admin Dashboard</title>
     <style></style>
 </head>
@@ -12,22 +13,22 @@
 <body>
     <a href="../index.php"><h1>Admin Dashboard</h1></a>
 
-    <div id="editFormContainer" style="display: none;">
-        <h2>Edit Item</h2>
-        <form id="editForm">
-        </form>
-    </div>
-
     <div id="tableSelector">
         <h2>Select a table to manage:</h2>
         <select id="tableSelect">
         </select>
     </div>
 
-    <div id="tableData" class="table-container">
+    <div id="formContainer">
     </div>
 
-    <div id="formContainer">
+    <div id="editFormContainer" style="display: none;">
+        <h2>Edit Item</h2>
+        <form id="editForm">
+        </form>
+    </div>
+
+    <div id="tableData" class="table-container">
     </div>
 
     <script>
@@ -66,45 +67,75 @@
                 .then(data => {
                     const tableContainer = document.getElementById('tableData');
                     tableContainer.innerHTML = '';
-
+        
+                    createAddForm(data[currentTable][0]);
+        
                     const table = document.createElement('table');
                     const thead = document.createElement('thead');
                     const tbody = document.createElement('tbody');
-
+        
                     const headerRow = document.createElement('tr');
                     Object.keys(data[currentTable][0]).forEach(key => {
                         const th = document.createElement('th');
                         th.textContent = key;
+                        if (key === "password") {
+                            th.className = 'password-header';
+                            th.onclick = toggleAllPasswords;
+                        }
                         headerRow.appendChild(th);
                     });
                     const actionsTh = document.createElement('th');
                     actionsTh.textContent = 'Actions';
                     headerRow.appendChild(actionsTh);
                     thead.appendChild(headerRow);
-
-                    data[currentTable].forEach(item => {
+        
+                    data[currentTable].forEach((item, index) => {
                         const row = document.createElement('tr');
-                        Object.values(item).forEach(value => {
+                        Object.entries(item).forEach(([key, value]) => {
                             const cell = document.createElement('td');
-                            cell.textContent = value;
+                            if (key === "password") {
+                                const passwordSpan = document.createElement('span');
+                                passwordSpan.textContent = '••••••••';
+                                passwordSpan.className = 'password-field';
+                                passwordSpan.dataset.password = value;
+                                cell.appendChild(passwordSpan);
+                            } else {
+                                cell.textContent = value;
+                            }
                             row.appendChild(cell);
                         });
+        
                         const actionsCell = document.createElement('td');
-                        actionsCell.innerHTML = `
-                    <button onclick="editItem(${item.id})">Edit</button>
-                    <button onclick="deleteItem(${item.id})">Delete</button>
-                `;
+                        const editButton = document.createElement('button');
+                        editButton.textContent = 'Edit';
+                        editButton.onclick = () => editItem(item.id);
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.onclick = () => deleteItem(item.id);
+                        actionsCell.appendChild(editButton);
+                        actionsCell.appendChild(deleteButton);
                         row.appendChild(actionsCell);
+        
                         tbody.appendChild(row);
                     });
-
+        
                     table.appendChild(thead);
                     table.appendChild(tbody);
                     tableContainer.appendChild(table);
-
-                    createForm();
-                    createAddForm();
                 });
+        }
+        
+        function toggleAllPasswords() {
+            const passwordFields = document.querySelectorAll('.password-field');
+            const arePasswordsVisible = passwordFields[0].textContent !== '••••••••';
+        
+            passwordFields.forEach(field => {
+                if (arePasswordsVisible) {
+                    field.textContent = '••••••••';
+                } else {
+                    field.textContent = field.dataset.password;
+                }
+            });
         }
 
         function editItem(id) {
@@ -221,90 +252,61 @@
             }
         }
 
-        function createAddForm() {
-            const form = document.getElementById('addForm');
-            form.innerHTML = '';
+        function createAddForm(sampleItem) {
+            const formContainer = document.createElement('div');
+            formContainer.id = 'addFormContainer';
+            
+            const formTitle = document.createElement('h3');
+            formTitle.textContent = 'Add New Item';
+            formContainer.appendChild(formTitle);
         
-            fetch(`http://localhost:8000/${currentTable}`)
-                .then(response => response.json())
-                .then(data => {
-                    const fields = Object.keys(data[currentTable][0]);
-                    fields.forEach(field => {
-                        if (field !== 'id') {
-                            const label = document.createElement('label');
-                            label.textContent = field;
+            const form = document.createElement('form');
+            form.id = 'addForm';
+            
+            Object.keys(sampleItem).forEach(field => {
+                if (field !== 'id') {
+                    const label = document.createElement('label');
+                    label.textContent = field;
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = field;
+                    input.placeholder = field;
+                    label.appendChild(input);
+                    form.appendChild(label);
+                }
+            });
         
-                            if (field === 'contract_type') {
-                                const select = document.createElement('select');
-                                select.name = field;
-                                select.id = 'contract';
-                                select.required = true;
-        
-                                const options = [
-                                    {id: 'cdi', value: 'CDI', text: 'CDI'},
-                                    {id: 'cdd', value: 'CDD', text: 'CDD'},
-                                    {id: 'half-time', value: 'Half-time', text: 'Half-time'},
-                                    {id: 'internship', value: 'Internship', text: 'Internship'},
-                                    {id: 'apprenticeship', value: 'Apprenticeship', text: 'Apprenticeship'},
-                                    {id: 'freelance', value: 'Freelance', text: 'Freelance'}
-                                ];
-        
-                                options.forEach(opt => {
-                                    const option = document.createElement('option');
-                                    option.id = opt.id;
-                                    option.value = opt.value;
-                                    option.textContent = opt.text;
-                                    select.appendChild(option);
-                                });
-        
-                                label.appendChild(select);
-                            } else {
-                                const input = document.createElement('input');
-                                input.type = 'text';
-                                input.name = field;
-                                input.placeholder = field;
-                                input.required = true;
-                                label.appendChild(input);
-                            }
-        
-                            form.appendChild(label);
-                        }
-                    });
-        
-                    const submitButton = document.createElement('button');
-                    submitButton.textContent = 'Add Item';
-                    submitButton.onclick = (e) => {
-                        e.preventDefault();
-                        addNewItem();
-                    };
-                    form.appendChild(submitButton);
-                });
-        }
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.textContent = 'Add New Item';
+            form.appendChild(submitButton);
+            form.onsubmit = addNewItem;
 
-        function addNewItem() {
-            const form = document.getElementById('addForm');
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            formContainer.appendChild(form);
+            document.getElementById('tableData').insertBefore(formContainer, document.getElementById('tableData').firstChild);
+        }
+          
+        function addNewItem(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const newItem = Object.fromEntries(formData.entries());
         
             fetch(`http://localhost:8000/${currentTable}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(newItem),
             })
             .then(response => response.json())
-            .then(result => {
-                alert(result.message);
-                form.reset();
+            .then(data => {
+                console.log('Success:', data);
                 loadTableData();
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error:', error);
-                alert('An error occurred while adding the new item.');
             });
         }
-
         loadTableNames();
         document.getElementById('tableSelect').addEventListener('change', loadTableData);
 
