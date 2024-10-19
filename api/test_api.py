@@ -7,6 +7,7 @@ from sqlalchemy import inspect
 #pour hacher les mdp
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
+import sqlite3
 
 from flask_cors import CORS
 app = Flask(__name__)
