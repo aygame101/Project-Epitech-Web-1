@@ -15,11 +15,17 @@
         <?php
         session_start();
         if (!isset($_SESSION['connected'])) {
-            echo '<a class="login" href="#">Login</a>';
+            echo '<a class="login" href="pages/login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
-            echo '<p class="login" href="google.Fr">Account</p>';
+            if (isset($_SESSION['company'])){
+                echo '<a class="login" href="pages/account_company.php">Account</a>';
+            }
+            else if  (isset($_SESSION['candidate'])){
+                echo '<a class="login" href="pages/account_applier.php">Account</a>';
+            }
         }
         ?>
+        
     <div class="div_form">
         <h2>Create your Job advertisement here :</h2>
 

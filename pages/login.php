@@ -77,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <input class="connexion" type="submit" value="Connexion"/>
 
-        <a class="register_button" href="register_comp.html">Register as a Company</a>
-        <a class="register_button" href="register_applier.html">Register as an Applier</a>
+        <a class="register_button" href="register_comp.php">Register as a Company</a>
+        <a class="register_button" href="register_applier.php">Register as an Applier</a>
 
     </form>
     </div>
