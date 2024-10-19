@@ -43,7 +43,7 @@
 
                 <input type="text" name="in_charge" id="in_charge" placeholder="Mail person in charge" required>
 
-                <input type="text" name="description_job" id="description_job" placeholder="Job description "required>
+                <textarea type="text" name="description_job" id="description_job" placeholder="Job description "required></textarea>
 
                 <input type="submit" value="Submit" class="submit">
         </form>
