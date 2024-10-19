@@ -425,6 +425,29 @@ def search_company():
     else:
         return jsonify({"error": "Company not found"}), 404
     
+    #regarde a quoi un user a apply 
+@app.route("/applied_jobs/<int:user_id>", methods=["GET"])
+def get_applied_jobs(user_id):
+    applied_jobs = db.session.query(JobAds)\
+        .join(RequestStorage, JobAds.id == RequestStorage.id_annonce_postule)\
+        .filter(RequestStorage.applayer_info == user_id)\
+        .all()
+    
+    output = []
+    for job in applied_jobs:
+        job_data = {
+            "id": job.id,
+            "job_title": job.job_title,
+            "company_name": job.company_name,
+            "city": job.city,
+            "contract_type": job.contract_type,
+            "wage": job.wage,
+            "description_job": job.description_job
+        }
+        output.append(job_data)
+    
+    return jsonify(output)
+
     #lance l'API
     
 if __name__ == "__main__":
