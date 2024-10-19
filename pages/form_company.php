@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../css/style_form_company.css">
+    <link rel="stylesheet" href="../css/no_uderline.css">
     <script src="js/script.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
 </head>
 <body>
     <div class="div_titre_acc">
-        <h1 class="titre_acc">J0B F1ND3R</h1>
+        <a href="../index.php"><h1 class="titre_acc">J0B F1ND3R</h1></a>
 
         <?php
         session_start();

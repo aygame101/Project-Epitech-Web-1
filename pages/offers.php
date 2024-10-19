@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - J0B F1ND3R</title>
     <link rel="stylesheet" href="../css/style_offers.css">
+    <link rel="stylesheet" href="../css/no_uderline.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../JS/script.js"></script>
 </head>
 
 <body>
     <div class="div_titre_acc">
-        <h1 class="titre_acc">J0B F1ND3R</h1>
+        <a href="../index.php"><h1 class="titre_acc">J0B F1ND3R</h1></a>
 
         <?php
         session_start();
