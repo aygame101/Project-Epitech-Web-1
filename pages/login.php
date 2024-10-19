@@ -1,13 +1,6 @@
 <?php
 session_start();
 
-
-$conn = new mysqli("localhost", "root", "", "test");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,41 +8,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $type = $_POST['type_person'];
     
-    if ($type == 'company') {
-        $sql = "SELECT * FROM companies WHERE name = ?";
-    } else {
-        $sql = "SELECT * FROM people WHERE mail = ?";
-    }
+    $data = [
+        'email' => $email,
+        'password' => $password
+    ];
     
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $endpoint = ($type == 'company') ? 'http://localhost:8000/companies/login' : 'http://localhost:8000/people/login';
     
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_type'] = $type;
-            $conn->close();
-            $_SESSION['connected'] = true;
-            if ($type == 'company') {
-                header("Location: form_company.php");
-                $_SESSION['company'] = true;
-            } else {
-                header("Location: ../index.php");
-                $_SESSION['candidate'] = true;
-            }
-            exit();
+    $ch = curl_init($endpoint);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json'
+    ]);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($httpCode == 200) {
+        $result = json_decode($response, true);
+        $_SESSION['user_id'] = $result['id'];
+        $_SESSION['user_type'] = $type;
+        $_SESSION['connected'] = true;
+        if ($type == 'company') {
+            $_SESSION['company'] = true;
+            header("Location: form_company.php");
         } else {
-            $error = "Invalid email or password";
+            $_SESSION['candidate'] = true;
+            header("Location: ../index.php");
         }
+        exit();
     } else {
         $error = "Invalid email or password";
     }
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +68,7 @@ $conn->close();
             <option value="applier">Applier</option>
         </select>
 
-        <?php if($error) { echo "<p style='color: red;'>$error</p>"; } ?>
+        <?php if($error) { echo "<p style='color: black;'>$error</p>"; } ?>
 
         <input type="text" id="username" name="username" placeholder="Username or Mail" required>
 

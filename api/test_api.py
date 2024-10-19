@@ -4,6 +4,9 @@ import logging
 
 from sqlalchemy import func
 from sqlalchemy import inspect
+#pour hacher les mdp
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -24,13 +27,11 @@ class People(db.Model):
     firstname = db.Column(db.String(100))
     phone = db.Column(db.String(20))
     password = db.Column(db.String(255))
-    salt = db.Column(db.String(255))
 
 class Companies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
-    salt = db.Column(db.String(255), nullable=False)
 
 class JobAds(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,13 +56,29 @@ def get_people():
     output = [{"id": person.id, "name": person.name, "firstname": person.firstname, "mail": person.mail, "password": person.password} for person in people]
     return jsonify({"people": output})
 
-@app.route("/people", methods=["POST"])
-def create_person():
-    data = request.get_json()
-    new_person = People(name=data["name"], firstname=data["firstname"], mail=data["mail"], applying=data["applying"])
-    db.session.add(new_person)
-    db.session.commit()
-    return jsonify({"message": "Person created successfully"})
+@app.route('/people', methods=['POST'])
+def add_person():
+    data = request.json
+    
+    required_fields = ['name', 'email', 'password', 'is_applier']
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    hashed_password = generate_password_hash(data['password'])
+
+    try:
+        conn = sqlite3.connect('your_database.db')
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO people (name, email, password, is_applier)
+            VALUES (?, ?, ?, ?)
+        ''', (data['name'], data['email'], hashed_password, data['is_applier']))
+        conn.commit()
+        new_id = cursor.lastrowid
+        conn.close()
+        return jsonify({"message": "Person added successfully", "id": new_id}), 201
+    except sqlite3.Error as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/people/<id>", methods=["GET"])
 def get_person(id):
@@ -100,7 +117,11 @@ def get_companies():
 @app.route("/companies", methods=["POST"])
 def create_company():
     data = request.get_json()
-    new_company = Companies(name=data["name"], password=data["password"], salt=data["salt"])
+    hashed_password = generate_password_hash(data["password"])
+    new_company = Companies(
+        name=data["name"],
+        password=hashed_password
+    )
     db.session.add(new_company)
     db.session.commit()
     return jsonify({"message": "Company created successfully"})
@@ -240,6 +261,35 @@ def get_table_names():
     inspector = inspect(db.engine)
     table_names = inspector.get_table_names()
     return jsonify({"table_names": table_names})
+
+    #pour la page login
+    
+@app.route("/people/login", methods=["POST"])
+def login_people():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    user = People.query.filter_by(mail=email).first()
+
+    if user and check_password_hash(user.password, password):
+        return jsonify({"id": user.id, "message": "Login successful"}), 200
+    else:
+        return jsonify({"message": "Invalid email or password"}), 401
+
+@app.route("/companies/login", methods=["POST"])
+def login_companies():
+    data = request.json
+    name = data.get('email') 
+    password = data.get('password')
+
+    company = Companies.query.filter_by(name=name).first()
+
+    if company and check_password_hash(company.password, password):
+        return jsonify({"id": company.id, "message": "Login successful"}), 200
+    else:
+        return jsonify({"message": "Invalid company name or password"}), 401
+
 
     #lance l'API
     

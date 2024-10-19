@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/no_uderline.css">
-    <link rel="stylesheet" href="../css/admin.css">
     <title>Admin Dashboard</title>
     <style></style>
 </head>
@@ -78,10 +77,6 @@
                     Object.keys(data[currentTable][0]).forEach(key => {
                         const th = document.createElement('th');
                         th.textContent = key;
-                        if (key === "password") {
-                            th.className = 'password-header';
-                            th.onclick = toggleAllPasswords;
-                        }
                         headerRow.appendChild(th);
                     });
                     const actionsTh = document.createElement('th');
@@ -98,7 +93,27 @@
                                 passwordSpan.textContent = '••••••••';
                                 passwordSpan.className = 'password-field';
                                 passwordSpan.dataset.password = value;
+                                passwordSpan.style.cursor = 'pointer';
+                                passwordSpan.onclick = function() {
+                                    if (this.textContent === '••••••••') {
+                                        this.textContent = this.dataset.password;
+                                    } else {
+                                        this.textContent = '••••••••';
+                                    }
+                                };
                                 cell.appendChild(passwordSpan);
+                            } else if (currentTable === 'job_ads' && key === 'description') {
+                                const shortDesc = value.substring(0, 50) + '...';
+                                cell.textContent = shortDesc;
+                                cell.title = value;
+                                cell.style.cursor = 'pointer';
+                                cell.onclick = function() {
+                                    if (this.textContent === shortDesc) {
+                                        this.textContent = value;
+                                    } else {
+                                        this.textContent = shortDesc;
+                                    }
+                                };
                             } else {
                                 cell.textContent = value;
                             }
@@ -267,8 +282,26 @@
                 if (field !== 'id') {
                     const label = document.createElement('label');
                     label.textContent = field;
-                    const input = document.createElement('input');
-                    input.type = 'text';
+                    let input;
+        
+                    if (field === 'is_applier' && currentTable === 'people') {
+                        input = document.createElement('select');
+                        const option0 = document.createElement('option');
+                        option0.value = "0";
+                        option0.textContent = "No";
+                        const option1 = document.createElement('option');
+                        option1.value = "1";
+                        option1.textContent = "Yes";
+                        input.appendChild(option0);
+                        input.appendChild(option1);
+                    } else if (field === 'password') {
+                        input = document.createElement('input');
+                        input.type = 'password';
+                    } else {
+                        input = document.createElement('input');
+                        input.type = 'text';
+                    }
+        
                     input.name = field;
                     input.placeholder = field;
                     label.appendChild(input);
@@ -281,15 +314,19 @@
             submitButton.textContent = 'Add New Item';
             form.appendChild(submitButton);
             form.onsubmit = addNewItem;
-
+        
             formContainer.appendChild(form);
             document.getElementById('tableData').insertBefore(formContainer, document.getElementById('tableData').firstChild);
         }
-          
-        function addNewItem(event) {
+        
+        async function addNewItem(event) {
             event.preventDefault();
             const formData = new FormData(event.target);
             const newItem = Object.fromEntries(formData.entries());
+        
+            if (currentTable === 'people') {
+                newItem.is_applier = parseInt(newItem.is_applier) || 0;
+            }
         
             fetch(`http://localhost:8000/${currentTable}`, {
                 method: 'POST',
@@ -302,11 +339,14 @@
             .then(data => {
                 console.log('Success:', data);
                 loadTableData();
+                document.getElementById('addForm').reset();
             })
             .catch((error) => {
                 console.error('Error:', error);
+                alert('An error occurred while adding the item.');
             });
         }
+        
         loadTableNames();
         document.getElementById('tableSelect').addEventListener('change', loadTableData);
 

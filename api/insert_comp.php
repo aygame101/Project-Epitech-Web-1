@@ -1,29 +1,41 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "", "test");
-
-
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-
-
-
 $name = $_POST['name'];
-$pwd= $_POST['password'];
-$salt = '15'; 
-$password = password_hash($pwd, PASSWORD_BCRYPT);
+$pwd = $_POST['password'];
 
-$sql = "INSERT INTO companies (name, password) VALUES ('$name', '$password')";
+$data = array(
+  'name' => $name,
+  'password' => $pwd
+);
 
+$json_data = json_encode($data);
 
+$ch = curl_init('http://localhost:8000/companies');
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt(
+  $ch,
+  CURLOPT_HTTPHEADER,
+  array(
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($json_data)
+  )
+);
 
-if (mysqli_query($conn, $sql)) {
-  echo "Data inserted successfully!";
+$result = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  echo 'Erreur cURL : ' . curl_error($ch);
 } else {
-  echo "Error: " . mysqli_error($conn);
+  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  if ($http_code == 201) {
+    echo "Inscription de l'entreprise réussie !";
+  } else {
+    echo "Erreur lors de l'inscription de l'entreprise. Code HTTP : " . $http_code;
+  }
 }
 
+curl_close($ch);
 
-mysqli_close($conn);
 header('location: ../pages/login.php');
