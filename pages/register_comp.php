@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <link rel="stylesheet" href="../css/">
     <link rel="stylesheet" href="../css/no_uderline.css">

@@ -12,7 +12,8 @@ $job_ad_id = $_POST['job_ad_id'] ?? null;
 $company_id = $_POST['company_id'] ?? null;
 
 if (!$job_ad_id || !$company_id) {
-    die("Données manquantes : job_ad_id ou company_id");
+    echo("Données manquantes : job_ad_id ou company_id");
+    header("../index.php");
 }
 
 $data = array(
