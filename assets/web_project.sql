@@ -6,6 +6,7 @@ CREATE TABLE people (
     firstname VARCHAR(100),
     phone VARCHAR(20),
     password VARCHAR(255)
+    UNIQUE(mail)
 );
 
 CREATE TABLE companies (

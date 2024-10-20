@@ -41,10 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($email == "admin") {
             $_SESSION['admin'] = true;
             header("Location: admin.php"); 
-        } else if ($type == "applier" | $email !== "admin") {
+        } else if ($type == "applier" && $email !== "admin") {
             $_SESSION['candidate'] = true;
             header("Location: ../index.php");
-        } else if ($type == 'company' | $email !== "admin") {
+        } else if ($type == 'company' && $email !== "admin") {
                 $_SESSION['company'] = true;
                 header("Location: form_company.php");
         }
