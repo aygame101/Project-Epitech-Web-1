@@ -38,15 +38,14 @@
         if (!isset($_SESSION['connected'])) {
             echo '<a class="login" href="login.php">Login</a>';
         } else if (isset($_SESSION['connected'])) {
-            if (isset($_SESSION['company'])){
+            if (isset($_SESSION['company'])) {
                 echo '<a class="login" href="account_company.php">Account</a>';
-            }
-            else if  (isset($_SESSION['candidate'])){
+            } else if (isset($_SESSION['candidate'])) {
                 echo '<a class="login" href="account_applier.php">Account</a>';
-            }
-            else if (isset($_SESSION['admin'])){
+            } else if (isset($_SESSION['admin'])) {
                 echo '<a class="login" href="admin.php">Account</a>';
-        }}
+            }
+        }
         ?>
 
         <div class="div_form">
@@ -55,25 +54,32 @@
             <form action="../api/post_job_ad.php" method="POST" id="jobAdForm">
                 <select name="company_name" id="company_name" required onchange="checkNewCompany(this)">
                     <option value="" disabled selected>Select a company</option>
-                    <?php foreach ($companies as $company): ?>
-                        <option value="<?php echo htmlspecialchars($company); ?>"><?php echo htmlspecialchars($company); ?></option>
-                    <?php endforeach; ?>
                     <option value="new_company">Add a new company</option>
                 </select>
 
-                <input type="text" name="new_company_name" id="new_company_name" style="display: none;" placeholder="Enter new company name">
-
                 <script>
-                    function checkOther(select) {
-                        if (select.value == 'other') {
-                            document.getElementById('new_company_name').style.display = 'block';
-                            document.getElementById('new_company_name').required = true;
-                        } else {
-                            document.getElementById('new_company_name').style.display = 'none';
-                            document.getElementById('new_company_name').required = false;
+                    document.addEventListener('DOMContentLoaded', function() {
+                        fetch('http://localhost:8000/companies')
+                            .then(response => response.json())
+                            .then(data => {
+                                const select = document.getElementById('company_name');
+                                data.companies.forEach(company => {
+                                    const option = document.createElement('option');
+                                    option.value = company.name;
+                                    option.textContent = company.name;
+                                    select.insertBefore(option, select.lastElementChild);
+                                });
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+
+                    function checkNewCompany(select) {
+                        if (select.value === 'new_company') {
+                            window.location.href = 'register_comp.php';
                         }
                     }
                 </script>
+
                 <input type="text" name="city" id="city" placeholder="City" required>
 
                 <input type="text" name="job" id="job" placeholder="Job title" required>
