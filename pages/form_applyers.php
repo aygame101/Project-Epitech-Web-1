@@ -5,27 +5,20 @@ $name = $firstname = $phone = $mail = '';
 
 // Vérif si un utilisateur est connecté
 if (isset($_SESSION['connected']) && isset($_SESSION['candidate']) && isset($_SESSION['user_id'])) {
-    $conn = mysqli_connect("localhost", "root", "", "test");
-
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
     $user_id = $_SESSION['user_id'];
-    $sql = "SELECT name, firstname, phone, mail FROM people WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $user_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
 
-    if ($row = mysqli_fetch_assoc($result)) {
-        $name = $row['name'];
-        $firstname = $row['firstname'];
-        $phone = $row['phone'];
-        $mail = $row['mail'];
+    $ch = curl_init("http://localhost:8000/people/{$user_id}");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    if ($response) {
+        $user_data = json_decode($response, true);
+        $name = $user_data['name'] ?? '';
+        $firstname = $user_data['firstname'] ?? '';
+        $phone = $user_data['phone'] ?? '';
+        $mail = $user_data['mail'] ?? '';
     }
-
-    mysqli_close($conn);
 }
 
 $job_ad_id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -95,7 +88,7 @@ $company_id = $company['id'];
 
     <div class="div_form">
         <form action="../api/insert_postuler.php" method="post">
-        <div>
+            <div>
                 <label for="name">Your name : </label>
                 <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
             </div>
@@ -119,8 +112,9 @@ $company_id = $company['id'];
             <input type="hidden" name="job_ad_id" value="<?php echo htmlspecialchars($job_ad_id); ?>">
             <input type="hidden" name="company_id" value="<?php echo htmlspecialchars($company_id); ?>">
 
-            <input class="valider" type="submit" value="Valider"/>
+            <input class="valider" type="submit" value="Valider" />
         </form>
     </div>
 </body>
+
 </html>

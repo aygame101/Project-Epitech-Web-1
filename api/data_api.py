@@ -107,6 +107,7 @@ def get_person(id):
         "name": person.name, 
         "firstname": person.firstname, 
         "mail": person.mail,
+        "phone":  person.phone,
         "password": ""
     })
 
