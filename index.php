@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <link rel="stylesheet" href="css/style_index.css">
     <script src="js/script.js"></script>
