@@ -60,14 +60,15 @@ class Admin(db.Model):
 @app.route("/people", methods=["GET"])
 def get_people():
     people = People.query.all()
-    output = [{"id": person.id, "name": person.name, "firstname": person.firstname, "mail": person.mail, "password": person.password} for person in people]
+    output = [{"id": person.id, "name": person.name, "firstname": person.firstname, "mail": person.mail, "password": person.password,  "phone": person.phone} for person in people]
+
     return jsonify({"people": output})
 
 @app.route('/people', methods=['POST'])
 def add_person():
     data = request.json
     
-    required_fields = ['name', 'mail', 'password', 'is_applier']
+    required_fields = ['name', 'mail', 'password', 'is_applier','phone']
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing required fields"}), 400
 
@@ -80,7 +81,7 @@ def add_person():
             password=hashed_password,
             is_applier=data['is_applier'],
             firstname=data.get('firstname'),
-            phone=data.get('phone')
+            phone=data['phone']
         )
         db.session.add(new_person)
         db.session.commit()
