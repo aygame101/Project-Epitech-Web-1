@@ -6,6 +6,24 @@ $mail = $_POST['mail'];
 $phone = $_POST['phone'];
 $pwd = $_POST['password'];
 
+//verif si il y a deja un user avec ce mail
+$ch = curl_init("http://localhost:8000/people/search?email=" . urlencode($mail));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($http_code == 200) {
+    $result = json_decode($response, true);
+    //Le message d'erreur ne s'affiche pas
+    if (!empty($result)) {
+        $_SESSION['error'] = "An account with this email address already exists.";
+        header('Location: ../pages/register_applier.php');
+        exit();
+    }
+}
+
+//si il n'y en a pas, en cree un
 $data = array(
   'name' => $name,
   'firstname' => $firstname,
@@ -33,17 +51,18 @@ curl_setopt(
 $result = curl_exec($ch);
 
 if (curl_errno($ch)) {
-  echo 'Erreur cURL : ' . curl_error($ch);
+  $_SESSION['error'] = 'Erreur cURL : ' . curl_error($ch);
+  header('Location: ../pages/register_applier.php');
 } else {
   $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if ($http_code == 201) {
-    echo "Inscription réussie !";
-    header('location: ../pages/login.php');
+      $_SESSION['success'] = "Inscription réussie !";
+      header('location: ../pages/login.php');
   } else {
-    echo "Erreur lors de l'inscription. Code HTTP : " . $http_code;
+      $_SESSION['error'] = "Erreur lors de l'inscription. Code HTTP : " . $http_code;
+      header('Location: ../pages/register_applier.php');
   }
 }
 
 curl_close($ch);
-
-
+exit();

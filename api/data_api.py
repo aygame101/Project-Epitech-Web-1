@@ -13,7 +13,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/test"  #nom + info de connexion de la database
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/web_project"  #nom + info de connexion de la database
 db = SQLAlchemy(app)
 
 
@@ -426,6 +426,7 @@ def search_company():
         return jsonify({"error": "Company not found"}), 404
     
     #regarde a quoi un user a apply 
+    
 @app.route("/applied_jobs/<int:user_id>", methods=["GET"])
 def get_applied_jobs(user_id):
     applied_jobs = db.session.query(JobAds)\
@@ -447,6 +448,34 @@ def get_applied_jobs(user_id):
         output.append(job_data)
     
     return jsonify(output)
+
+    #regarde si un mail existe deja dans la table people
+    
+@app.route("/people/search", methods=["GET"])
+def search_people():
+    email = request.args.get('email')
+    if not email:
+        return jsonify({"error": "Email parameter is required"}), 400
+    
+    person = People.query.filter_by(mail=email).first()
+    if person:
+        return jsonify({"id": person.id, "name": person.name, "email": person.mail})
+    else:
+        return jsonify({}), 200
+    
+    #regarde si un nom existe deja dans la table companie
+    
+@app.route("/companies/search", methods=["GET"])
+def search_comp():
+    name = request.args.get('name')
+    if not name:
+        return jsonify({"error": "Company name is required"}), 400
+    
+    company = Companies.query.filter_by(name=name).first()
+    if company:
+        return jsonify({"id": company.id, "name": company.name}), 200
+    else:
+        return jsonify({"error": "Company not found"}), 404
 
     #lance l'API
     

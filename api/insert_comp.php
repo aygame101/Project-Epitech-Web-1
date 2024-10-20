@@ -3,6 +3,24 @@
 $name = $_POST['name'];
 $pwd = $_POST['password'];
 
+//verif si il y a deja un user avec ce mail
+$ch = curl_init("http://localhost:8000/companies/search?name=" . urlencode($name));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($http_code == 200) {
+    $result = json_decode($response, true);
+    if (!empty($result)) {
+        // Le message d'erreur ne s'affiche pas
+        $_SESSION['error'] = "A company with this name already exists.";
+        header('Location: ../pages/register_comp.php');
+        exit();
+    }
+}
+
+//si il n'y en a pas, la cree
 $data = array(
   'name' => $name,
   'password' => $pwd

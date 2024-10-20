@@ -5,7 +5,7 @@ CREATE TABLE people (
     name VARCHAR(100),
     firstname VARCHAR(100),
     phone VARCHAR(20),
-    password VARCHAR(255)
+    password VARCHAR(255),
     UNIQUE(mail)
 );
 
@@ -42,22 +42,3 @@ CREATE TABLE admin (
     username  VARCHAR(255) NOT NULL,
     password  VARCHAR(255) NOT NULL
 );
-
---partie test
-```
-INSERT INTO peopleincharge (name,phone,mail)
-VALUES 
-('mr.x','0123456789','mrX@league.lol'),
-('Wukong','6546464646','wukong@king.kong'),
-('Son Goku','8888888888','songoku@gohan.goten'),
-('Leon S Kennedy','0666666666','leonKenn@resident.evil'),
-('Louis XIV','01091715','louis@guillotine.dead')
-
-INSERT INTO companies(name,address,people_in_charge)
-VALUES 
-('ubisoft','Paris, 15ème',1),
-('Safran','Paris, 2ème',2),
-('Firefly Inc','La Défense',3),
-('AMD','Corbeilles-Essonne',4),
-('','Versailles',5)
-```
