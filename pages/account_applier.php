@@ -2,7 +2,7 @@
 session_start();
 
 // Vérif la connexion
-if (!isset($_SESSION['connected']) || !isset($_SESSION['company']) || !isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['connected']) || !isset($_SESSION['candidate']) || !isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
