@@ -1,4 +1,9 @@
 # Project-Epitech-Web-1
+
+## Soutenance présentation de projet le 24 Octobre 2024 :
+Note : 100/100
+Tous les objectifs ont été atteints.
+
 ## Lundi 7.10.2024
 - Elaboration d'une maquette sur Figma pour prévoir un peu la présentation du site internet.
 - Reflexion sur la création des différentes tables SQL que nous allons créer.
@@ -47,7 +52,6 @@
 - affichage des propositions de jobs avec le bouton "see more".
 - CSS page jobs.
 - Pages connexion / inscription.
-
 
 
 ### Statut général Step
