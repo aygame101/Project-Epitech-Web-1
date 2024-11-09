@@ -4,6 +4,28 @@
 Note : 100/100
 Tous les objectifs ont été atteints.
 
+Détail :
+- There is a database containing at least the 4 tables `advertisements`, `companies`, `people`, `applications` : Success.
+- An HTML/CSS page shows several job advertisements with a title, a description, a "learn more" button : Success.
+- A "learn more" button displays all information about the ad without reloading the page nor displaying a popup : Success.
+- The data displayed via the "learn more" button is fetched dynamically : Success.
+- The API uses appropriate HTTP vers (`GET`, `POST`, `PUT`, `DELETE`) : Success.
+- The API routing convention is OK : Success.
+- Each ad has an “Apply” button that opens a forms to enter personal information and send a message : Success.
+- There is a page to create/modify an account : Success.
+- There is a functional connection page : Success.
+- Identified users' personal information are automatically filled for job applications : Success.
+- The admin page access is restricted : Success.
+- The admin page list all the table record : Success.
+- Any record can be created, updated or deleted on the admin page : Success.
+- The site is beautiful but it becomes ugly after disabling all CSS : Success.
+- The delivery is functional : Success.
+- The delivery offers a good experience to its users : Success.
+- A README is delivered and the project is documented to help newcomers easily understand it : Success.
+- The project is presented in a professional way using a relevant support (slides and/or demo) : Success.
+- The student gets all specific achievements of the project : Success.
+
+
 ## Lundi 7.10.2024
 - Elaboration d'une maquette sur Figma pour prévoir un peu la présentation du site internet.
 - Reflexion sur la création des différentes tables SQL que nous allons créer.
